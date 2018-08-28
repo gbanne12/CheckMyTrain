@@ -2,12 +2,12 @@ package bannerga.com.checkmytrain;
 
 
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
+import java.util.Map;
+
+import bannerga.com.checkmytrain.controllers.ConfigurationController;
 
 
 /**
@@ -39,24 +39,17 @@ public class ConfigurationControllerTest {
 
     @Test
     public void canGetNetworkRailResponse() throws Exception {
-        //String station = "MUI";
-        URL huxley = new URL("http://huxley.apphb.com/all/MUI" +
-                "?accessToken=3dfc0955-c0b0-4cb0-a8ca-9ddcf9d850cf&expand=true");
-        URLConnection connection = huxley.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        String inputLine = "";
-        String json = "";
-        while ((inputLine = in.readLine()) != null)
-            json = json + inputLine;
-        in.close();
-
-        JSONObject jsonObj = new JSONObject(json);
+        ConfigurationController controller = new ConfigurationController();
+        JSONObject json = controller.getJSONResponse();
+        Assert.assertFalse(json.toString().isEmpty() || json.toString().equals(""));
     }
 
     @Test
-    public void canParseTrainTime() {
-
+    public void canParseTrainTime() throws Exception {
+        ConfigurationController controller = new ConfigurationController();
+        JSONObject json=  controller.getJSONResponse();
+        Map trainInfo = controller.getTrainInformation(json, "Glasgow Central");
+        System.out.println(trainInfo.toString());
     }
 
 
