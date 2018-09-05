@@ -18,8 +18,8 @@ import java.util.Map;
 public class ConfigurationController {
 
 
-    public JSONObject getJSONResponse() throws Exception {
-        String huxleyAddress = "http://huxley.apphb.com/all/MUI" +
+    public JSONObject getJSONResponse(String originStation) throws Exception {
+        String huxleyAddress = "http://huxley.apphb.com/all/" + originStation +
                 "?accessToken=3dfc0955-c0b0-4cb0-a8ca-9ddcf9d850cf&expand=true";
         URL url = new URL(huxleyAddress);
         URLConnection connection = url.openConnection();
