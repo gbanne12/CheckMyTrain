@@ -36,30 +36,29 @@ public class JourneyQuery {
             responseString.append(line);
         }
 
+
         json = new JSONObject(responseString.toString());
     }
 
-    public Map getTrainInformation() throws JSONException {
-        Map map = new HashMap();
-        if (json != null) {
-            JSONArray jsonArray = (JSONArray) json.get("trainServices");
+    public Map getNextJourney() throws JSONException {
+        Map journeyInfo = new HashMap();
+        try {
+            JSONArray journeys = (JSONArray) json.get("trainServices");
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                Boolean isDestination =  ((JSONObject) jsonArray.get(i)).get("destination").toString().contains(destinationStation);
-                if (isDestination) {
-
-                    map.put("cancelled", ((JSONObject) jsonArray.get(i)).getBoolean("isCancelled"));
-                    map.put("time", ((JSONObject) jsonArray.get(i)).get("std").toString());
-                    map.put("delayed",((JSONObject) jsonArray.get(i)).get("etd").toString());
-
-                    System.out.println(((JSONObject) jsonArray.get(i)).get("std").toString());
+            for (int i = 0; i < journeys.length(); i++) {
+                JSONObject currentJourney = ((JSONObject) journeys.get(i));
+                Boolean hasCorrectDestination = currentJourney.get("destination").toString().contains(destinationStation);
+                if (hasCorrectDestination) {
+                    journeyInfo.put("cancelled", currentJourney.getBoolean("isCancelled"));
+                    journeyInfo.put("time", currentJourney.get("std").toString());
+                    journeyInfo.put("delayed", currentJourney.get("etd").toString());
+                    break;
                 }
             }
-
-        } else {
-            System.out.println("JSON is null, aborting attempt to find time");
+        } catch (JSONException e) {
+            System.out.println(e.getStackTrace());
         }
-        return map;
+        return journeyInfo;
 
     }
 
