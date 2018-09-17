@@ -24,6 +24,15 @@ public class Journey {
     @ColumnInfo(name = "time")
     private String time;
 
+    @NonNull
+    public int getId() {
+        return id;
+    }
+
+    public void setId(@NonNull int id) {
+        this.id = id;
+    }
+
     public String getOrigin() {
         return origin;
     }
