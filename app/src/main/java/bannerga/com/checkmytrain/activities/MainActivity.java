@@ -72,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
+    public void setTime(String time) {
+        TextInputEditText timeEditText = findViewById(R.id.time_input);
+        timeEditText.setText(time);
+    }
+
     // Setup a recurring alarm every half hour
     public void scheduleAlarm() {
         // Create a PendingIntent to be triggered when the alarm goes off. Intent will execute the AlarmReceiver

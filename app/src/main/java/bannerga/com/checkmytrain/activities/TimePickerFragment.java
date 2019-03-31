@@ -2,8 +2,10 @@ package bannerga.com.checkmytrain.activities;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
@@ -24,6 +26,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        // use the input
+        MainActivity context = (MainActivity) getActivity();
+        context.setTime(Integer.toString(hourOfDay));
     }
 }
