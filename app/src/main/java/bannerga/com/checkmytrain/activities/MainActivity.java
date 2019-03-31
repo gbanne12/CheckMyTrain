@@ -8,6 +8,7 @@ import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -64,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "No station name entered", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
     // Setup a recurring alarm every half hour

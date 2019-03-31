@@ -41,7 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="time"
-                android:id="@+id/time_input"/>
+                android:id="@+id/time_input"
+                android:onClick="showTimePickerDialog"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button
