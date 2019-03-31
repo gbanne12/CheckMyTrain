@@ -1,6 +1,7 @@
 package bannerga.com.checkmytrain.controllers;
 
 
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -38,17 +39,15 @@ public class ConfigurationController {
         Map map = new HashMap();
         if (json != null) {
             JSONArray jsonArray = (JSONArray) json.get("trainServices");
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 Boolean isDestination =  ((JSONObject) jsonArray.get(i)).get("destination").toString().contains(stationName);
                 if (isDestination) {
-
                     map.put("cancelled", ((JSONObject) jsonArray.get(i)).getBoolean("isCancelled"));
                     map.put("time", ((JSONObject) jsonArray.get(i)).get("std").toString());
                     map.put("delayed",((JSONObject) jsonArray.get(i)).get("etd").toString());
+                    break;
                 }
             }
-
         } else {
             System.out.println("JSON is null, aborting attempt to find time");
         }
