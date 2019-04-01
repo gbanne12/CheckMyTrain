@@ -60,9 +60,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSubmitClick(View view) {
-        scheduleAlarm();
         if (!stationEditText.getText().toString().equals("")) {
-            new getTrainInfoTask().execute();
+            new GetTrainInfoTask().execute();
         } else {
             Toast.makeText(this, "No station name entered", Toast.LENGTH_SHORT).show();
         }
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     public void scheduleAlarm() {
         // Create a PendingIntent to be triggered when the alarm goes off. Intent will execute the AlarmReceiver
         Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        intent.putExtra("station_name", stationEditText.getText().toString());
         PendingIntent notificationIntent = PendingIntent.getBroadcast(
                 this,
                 NotificationReceiver.REQUEST_CODE,
@@ -96,31 +96,29 @@ public class MainActivity extends AppCompatActivity {
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
-        
+
         AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
         // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
-        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, notificationIntent);
+        alarm.setInexactRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                notificationIntent);
     }
 
-    private class getTrainInfoTask extends AsyncTask<String, Void, Map> {
+    private class GetTrainInfoTask extends AsyncTask<String, Void, Map> {
+
+        //FIXME  returning empty hashmap for no reason
         @Override
         protected Map doInBackground(String... strings) {
-            Map trainInfo = new HashMap();
-            try {
-                ConfigurationController controller = new ConfigurationController();
-                JSONObject json = controller.getJSONResponse(stationEditText.getText().toString());
-                trainInfo = controller.getTrainInformation(json, "Glasgow Central");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return trainInfo;
+            scheduleAlarm();
+            return new HashMap();
         }
 
         @Override
         protected void onPostExecute(Map result) {
-            Toast.makeText(MainActivity.this, result.get("time").toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Notification added", Toast.LENGTH_SHORT).show();
         }
     }
 }

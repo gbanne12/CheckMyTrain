@@ -12,7 +12,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent i = new Intent(context, NotificationService.class);
-        i.putExtra("foo", "bar");
+        i.putExtra("station_name", intent.getStringExtra("station_name"));
         context.startService(i);
     }
 }
