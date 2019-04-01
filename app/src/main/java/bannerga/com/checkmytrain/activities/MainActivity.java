@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,13 +27,14 @@ import bannerga.com.checkmytrain.service.NotificationReceiver;
 public class MainActivity extends AppCompatActivity {
 
     private TextInputEditText stationEditText;
+    private int hourOfDay;
+    private int minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_configuration);
         stationEditText = findViewById(R.id.station_input);
-        scheduleAlarm();
     }
 
     @Override
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSubmitClick(View view) {
+        scheduleAlarm();
         if (!stationEditText.getText().toString().equals("")) {
             new getTrainInfoTask().execute();
         } else {
@@ -72,12 +73,14 @@ public class MainActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
-    public void setTime(String time) {
+    public void setTime(int hourOfDay, int minute) {
+        this.hourOfDay = hourOfDay;
+        this.minute = minute;
         TextInputEditText timeEditText = findViewById(R.id.time_input);
-        timeEditText.setText(time);
+        timeEditText.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
     }
 
-    // Setup a recurring alarm every half hour
+
     public void scheduleAlarm() {
         // Create a PendingIntent to be triggered when the alarm goes off. Intent will execute the AlarmReceiver
         Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
@@ -91,10 +94,9 @@ public class MainActivity extends AppCompatActivity {
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 54);
-
-
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+        
         AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
         // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
