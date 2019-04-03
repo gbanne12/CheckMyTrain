@@ -20,7 +20,7 @@
             style="@style/AppTheme.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_station">
+            android:hint="@string/hint_departure_station">
             <!--app:hintTextAppearance="@style/AppTheme.TextInputLayout.HintText"-->
 
             <android.support.design.widget.TextInputEditText
@@ -29,8 +29,22 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:text="MUI"
-                android:id="@+id/station_input" />
+                android:id="@+id/departure_station_input" />
+        </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            style="@style/AppTheme.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_arrival_station">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="Glasgow Central"
+                android:id="@+id/arrival_station_input" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
