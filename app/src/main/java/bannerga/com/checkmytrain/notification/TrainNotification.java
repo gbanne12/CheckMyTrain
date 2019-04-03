@@ -20,13 +20,11 @@ public class TrainNotification {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Build notification
-
         Notification.Builder builder = new Notification.Builder(context)
                 .setContentIntent(getPendingIntent(context))
-                .setContentTitle(trainInfo.get("delayed").toString())
-                .setContentText(trainInfo.get("time").toString())
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Status: " + trainInfo.get("delayed").toString())
+                .setContentText("Departure time: " + trainInfo.get("time").toString())
+                .setSmallIcon(R.drawable.ic_notification_icon)
                // .setColor(content.getColor())
                 .setAutoCancel(true)
                 .setOngoing(false);
