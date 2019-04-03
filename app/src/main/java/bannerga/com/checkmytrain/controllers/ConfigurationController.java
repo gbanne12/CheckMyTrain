@@ -1,9 +1,11 @@
 package bannerga.com.checkmytrain.controllers;
 
 
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.icu.util.Calendar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +18,23 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import bannerga.com.checkmytrain.service.NotificationReceiver;
+
 public class ConfigurationController {
+
+    public void scheduleAlarm(Context context, Intent intent) {
+        // Create a PendingIntent to be triggered when the alarm goes off. Intent will execute the AlarmReceiver
+        PendingIntent notificationIntent = PendingIntent.getBroadcast(
+                context, NotificationReceiver.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, intent.getIntExtra("hourOfDay", 0));
+        calendar.set(Calendar.MINUTE, intent.getIntExtra("minute", 0));
+
+        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                5000, notificationIntent);
+    }
 
 
     public JSONObject getJSONResponse(String originStation) throws Exception {
@@ -40,11 +58,11 @@ public class ConfigurationController {
         if (json != null) {
             JSONArray jsonArray = (JSONArray) json.get("trainServices");
             for (int i = 0; i < jsonArray.length(); i++) {
-                Boolean isDestination =  ((JSONObject) jsonArray.get(i)).get("destination").toString().contains(stationName);
+                Boolean isDestination = ((JSONObject) jsonArray.get(i)).get("destination").toString().contains(stationName);
                 if (isDestination) {
                     map.put("cancelled", ((JSONObject) jsonArray.get(i)).getBoolean("isCancelled"));
                     map.put("time", ((JSONObject) jsonArray.get(i)).get("std").toString());
-                    map.put("delayed",((JSONObject) jsonArray.get(i)).get("etd").toString());
+                    map.put("delayed", ((JSONObject) jsonArray.get(i)).get("etd").toString());
                     break;
                 }
             }

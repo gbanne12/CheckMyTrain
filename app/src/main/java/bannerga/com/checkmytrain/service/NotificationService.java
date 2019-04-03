@@ -20,12 +20,12 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.i("Notification Service", "Service running");
+        Log.i("Notification Service", "Adding notification");
         Map trainInfo = new HashMap();
         try {
             ConfigurationController controller = new ConfigurationController();
-            JSONObject json = controller.getJSONResponse(intent.getStringExtra("station_name"));
-            trainInfo = controller.getTrainInformation(json, "Glasgow Central");
+            JSONObject json = controller.getJSONResponse(intent.getStringExtra("departure_station_name"));
+            trainInfo = controller.getTrainInformation(json, intent.getStringExtra("arrival_station_name"));
         } catch (Exception e) {
             e.printStackTrace();
         }

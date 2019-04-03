@@ -12,7 +12,8 @@ public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent i = new Intent(context, NotificationService.class);
-        i.putExtra("station_name", intent.getStringExtra("station_name"));
+        i.putExtra("departure_station_name", intent.getStringExtra("departure_station_name"));
+        i.putExtra("arrival_station_name", intent.getStringExtra("arrival_station_name"));
         context.startService(i);
     }
 }

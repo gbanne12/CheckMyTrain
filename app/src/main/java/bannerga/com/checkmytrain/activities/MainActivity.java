@@ -1,10 +1,6 @@
 package bannerga.com.checkmytrain.activities;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -15,8 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +20,8 @@ import bannerga.com.checkmytrain.service.NotificationReceiver;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextInputEditText stationEditText;
+    private TextInputEditText departureStationEditText;
+    private TextInputEditText arrivalStationEditText;
     private int hourOfDay;
     private int minute;
 
@@ -34,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_configuration);
-        stationEditText = findViewById(R.id.station_input);
+        departureStationEditText = findViewById(R.id.departure_station_input);
+        arrivalStationEditText = findViewById(R.id.arrival_station_input);
     }
 
     @Override
@@ -60,10 +56,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSubmitClick(View view) {
-        if (!stationEditText.getText().toString().equals("")) {
+        if (!departureStationEditText.getText().toString().equals("")
+                || !arrivalStationEditText.getText().toString().equals("")) {
             new GetTrainInfoTask().execute();
         } else {
-            Toast.makeText(this, "No station name entered", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -79,40 +76,18 @@ public class MainActivity extends AppCompatActivity {
         timeEditText.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
     }
 
-
-    public void scheduleAlarm() {
-        // Create a PendingIntent to be triggered when the alarm goes off. Intent will execute the AlarmReceiver
-        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
-        intent.putExtra("station_name", stationEditText.getText().toString());
-        PendingIntent notificationIntent = PendingIntent.getBroadcast(
-                this,
-                NotificationReceiver.REQUEST_CODE,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        // Setup periodic alarm every every half hour from this point onwards
-        long firstMillis = System.currentTimeMillis();
-        // Set the alarm to start at 8:30 a.m.
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calendar.set(Calendar.MINUTE, minute);
-
-        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
-        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
-        alarm.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES,
-                notificationIntent);
-    }
-
     private class GetTrainInfoTask extends AsyncTask<String, Void, Map> {
 
         //FIXME  returning empty hashmap for no reason
         @Override
         protected Map doInBackground(String... strings) {
-            scheduleAlarm();
+            Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+            intent.putExtra("departure_station_name", departureStationEditText.getText().toString());
+            intent.putExtra("arrival_station_name", arrivalStationEditText.getText().toString());
+            intent.putExtra("hourOfDay", hourOfDay);
+            intent.putExtra("minute", minute);
+            ConfigurationController controller = new ConfigurationController();
+            controller.scheduleAlarm(MainActivity.this, intent);
             return new HashMap();
         }
 
