@@ -1,11 +1,11 @@
 package bannerga.com.checkmytrain.controllers;
 
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.icu.util.Calendar;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,24 +18,31 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import bannerga.com.checkmytrain.service.NotificationReceiver;
+import bannerga.com.checkmytrain.activities.NotificationJobService;
+
+import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 public class ConfigurationController {
 
-    public void scheduleAlarm(Context context, Intent intent) {
-        // Create a PendingIntent to be triggered when the alarm goes off. Intent will execute the AlarmReceiver
-        PendingIntent notificationIntent = PendingIntent.getBroadcast(
-                context, NotificationReceiver.REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    private JobScheduler mScheduler;
+    private static final int JOB_ID = 0;
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, intent.getIntExtra("hourOfDay", 0));
-        calendar.set(Calendar.MINUTE, intent.getIntExtra("minute", 0));
-
-        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                5000, notificationIntent);
+    public void scheduleJob(Context context) {
+        mScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
+        ComponentName service = new ComponentName(context.getPackageName(), NotificationJobService.class.getName());
+        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, service);
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+        JobInfo myJobInfo = builder.build();
+        mScheduler.schedule(myJobInfo);
     }
 
+    public void cancelJob(Context context) {
+        if (mScheduler != null) {
+            mScheduler.cancelAll();
+            mScheduler = null;
+            Toast.makeText(context, "Jobs cancelled", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public JSONObject getJSONResponse(String originStation) throws Exception {
         String huxleyAddress = "http://huxley.apphb.com/all/" + originStation +
@@ -72,5 +79,4 @@ public class ConfigurationController {
         return map;
 
     }
-
 }
