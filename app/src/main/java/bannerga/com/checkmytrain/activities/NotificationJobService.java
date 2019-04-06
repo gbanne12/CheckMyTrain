@@ -45,7 +45,6 @@ public class NotificationJobService extends JobService {
             }
             TrainNotification notification = new TrainNotification();
             notification.issueNotification(NotificationJobService.this, trainInfo);
-            Toast.makeText(NotificationJobService.this, "Job Scheduled", Toast.LENGTH_SHORT).show();
             return new HashMap();
         }
 
