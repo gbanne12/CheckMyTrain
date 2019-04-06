@@ -31,7 +31,9 @@ public class ConfigurationController {
         mScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
         ComponentName service = new ComponentName(context.getPackageName(), NotificationJobService.class.getName());
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, service);
-        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setBackoffCriteria(6000, JobInfo.BACKOFF_POLICY_LINEAR)
+                .setMinimumLatency(1000 * 60);
         JobInfo myJobInfo = builder.build();
         mScheduler.schedule(myJobInfo);
     }
