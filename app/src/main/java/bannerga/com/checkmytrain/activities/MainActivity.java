@@ -1,14 +1,19 @@
 package bannerga.com.checkmytrain.activities;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -20,8 +25,13 @@ import bannerga.com.checkmytrain.service.NotificationReceiver;
 
 public class MainActivity extends AppCompatActivity {
 
+    private JobScheduler mScheduler;
+    private static final int JOB_ID = 0;
+
     private TextInputEditText departureStationEditText;
     private TextInputEditText arrivalStationEditText;
+    private Button submitButton;
+    private Button cancelButton;
     private int hourOfDay;
     private int minute;
 
@@ -31,6 +41,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_request_configuration);
         departureStationEditText = findViewById(R.id.departure_station_input);
         arrivalStationEditText = findViewById(R.id.arrival_station_input);
+        submitButton = findViewById(R.id.button_submit);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSubmitClick(view);
+            }
+        });
+
+        cancelButton = findViewById(R.id.button_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCancelClick(view);
+            }
+        });
+
+
     }
 
     @Override
@@ -58,9 +85,34 @@ public class MainActivity extends AppCompatActivity {
     public void onSubmitClick(View view) {
         if (!departureStationEditText.getText().toString().equals("")
                 || !arrivalStationEditText.getText().toString().equals("")) {
-            new GetTrainInfoTask().execute();
+
+            // FIXME use async task instead of main thread
+            if (android.os.Build.VERSION.SDK_INT > 9) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+            }
+
+            // break
+            mScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+            ComponentName service = new ComponentName(getPackageName(), NotificationJobService.class.getName());
+            JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, service);
+            builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+            JobInfo myJobInfo = builder.build();
+            mScheduler.schedule(myJobInfo);
+            Toast.makeText(this, "Job Scheduled, job will run when " +
+                    "the constraints are met.", Toast.LENGTH_SHORT).show();
+
+
         } else {
             Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void onCancelClick(View view) {
+        if (mScheduler!=null){
+            mScheduler.cancelAll();
+            mScheduler = null;
+            Toast.makeText(this, "Jobs cancelled", Toast.LENGTH_SHORT).show();
         }
     }
 

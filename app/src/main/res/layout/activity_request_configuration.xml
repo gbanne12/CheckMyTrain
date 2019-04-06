@@ -64,12 +64,21 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/button_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorPrimaryDark"
-            android:text="@string/button_label_submit"
-            android:onClick="onSubmitClick"/>
+            android:text="@string/button_label_submit" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/button_label_cancel"
+            android:paddingStart="@dimen/fab_margin" />
 
     </LinearLayout>
 
