@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextInputEditText departureStationEditText;
     private TextInputEditText arrivalStationEditText;
+    private TextInputEditText timeEditText;
     private Button submitButton;
     private Button cancelButton;
     private int hourOfDay;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_request_configuration);
         departureStationEditText = findViewById(R.id.departure_station_input);
         arrivalStationEditText = findViewById(R.id.arrival_station_input);
+        timeEditText = findViewById(R.id.time_input);
+        timeEditText.setOnClickListener(this::showTimePickerDialog);
         submitButton = findViewById(R.id.button_submit);
         submitButton.setOnClickListener(this::onSubmitClick);
         cancelButton = findViewById(R.id.button_cancel);
@@ -58,9 +61,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSubmitClick(View view) {
-        if (!departureStationEditText.getText().toString().equals("")
-                || !arrivalStationEditText.getText().toString().equals("")) {
-            controller.scheduleJob(this);
+        boolean isMissingUserInput = timeEditText.getText().toString().equals("")
+                || departureStationEditText.getText().toString().equals("")
+                || arrivalStationEditText.getText().toString().equals("");
+
+        if (!isMissingUserInput) {
+            String departureStation = departureStationEditText.getText().toString();
+            String arrivalStation = arrivalStationEditText.getText().toString();
+            controller.scheduleJob(this, departureStation, arrivalStation, hourOfDay, minute);
         } else {
             Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();
         }
@@ -75,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
         this.hourOfDay = hourOfDay;
         this.minute = minute;
         TextInputEditText timeEditText = findViewById(R.id.time_input);
-        timeEditText.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
+        String time = new StringBuilder().append(hourOfDay).append(":").append(minute).toString();
+        if (minute < 10) {
+            time = new StringBuilder().append(hourOfDay).append(":0").append(minute).toString();
+        }
+        timeEditText.setText(time);
     }
 }

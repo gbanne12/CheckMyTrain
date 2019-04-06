@@ -17,7 +17,9 @@ public class NotificationJobService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        new AsyncNotificationJob().execute();
+        String departureStation = params.getExtras().getString("departureStation");
+        String arrivalStation = params.getExtras().getString("arrivalStation");
+        new AsyncNotificationJob(departureStation, arrivalStation).execute();
         return false;
     }
 
@@ -29,19 +31,24 @@ public class NotificationJobService extends JobService {
 
     public class AsyncNotificationJob extends AsyncTask<String, Void, Map> {
 
+        private String departureStation;
+        private String arrivalStation;
+
+        public AsyncNotificationJob(String departureStation, String arrivalStation) {
+            this.departureStation = departureStation;
+            this.arrivalStation = arrivalStation;
+        }
+
         //FIXME  returning empty hashmap for no reason
         @Override
         protected Map doInBackground(String... strings) {
             Map trainInfo = new HashMap();
             try {
                 ConfigurationController controller = new ConfigurationController();
-                // JSONObject json = controller.getJSONResponse(intent.getStringExtra("departure_station_name"));
-                // trainInfo = controller.getTrainInformation(json, intent.getStringExtra("arrival_station_name"));
-                JSONObject json = controller.getJSONResponse("MUI");
-                trainInfo = controller.getTrainInformation(json, "Glasgow Central");
+                JSONObject json = controller.getJSONResponse(departureStation);
+                trainInfo = controller.getTrainInformation(json, arrivalStation);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(NotificationJobService.this, "Error: Failed to get train route JSON", Toast.LENGTH_LONG).show();
             }
             TrainNotification notification = new TrainNotification();
             notification.issueNotification(NotificationJobService.this, trainInfo);

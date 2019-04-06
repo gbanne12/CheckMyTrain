@@ -5,6 +5,7 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.PersistableBundle;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -15,6 +16,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,13 +30,29 @@ public class ConfigurationController {
     private JobScheduler mScheduler;
     private static final int JOB_ID = 0;
 
-    public void scheduleJob(Context context) {
+    public void scheduleJob(Context context, String departureStation, String arrivalStation, int hourOfDay, int minute) {
         mScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
         ComponentName service = new ComponentName(context.getPackageName(), NotificationJobService.class.getName());
+
+        PersistableBundle bundle = new PersistableBundle();
+        bundle.putString("departureStation", departureStation);
+        bundle.putString("arrivalStation", arrivalStation);
+
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime userScheduledTime = now.with(LocalTime.of(hourOfDay, minute));
+        ZonedDateTime tomorrrow = userScheduledTime.plusDays(1);
+
+        long nowInMillis = now.toInstant().toEpochMilli();
+        long userTimeInMillis = userScheduledTime.toInstant().toEpochMilli();
+        long tomorrowInMillis = tomorrrow.toInstant().toEpochMilli();
+        long offset = userTimeInMillis - nowInMillis;
+
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, service);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setBackoffCriteria(6000, JobInfo.BACKOFF_POLICY_LINEAR)
-                .setMinimumLatency(1000 * 60);
+                .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
+                //TODO set time to be based off user input
+                .setMinimumLatency(offset)
+                .setExtras(bundle);
         JobInfo myJobInfo = builder.build();
         mScheduler.schedule(myJobInfo);
     }
