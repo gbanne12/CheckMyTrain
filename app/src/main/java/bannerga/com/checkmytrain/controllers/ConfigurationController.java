@@ -31,25 +31,29 @@ public class ConfigurationController {
     private static final int JOB_ID = 0;
 
     public void scheduleJob(Context context, String departureStation, String arrivalStation, int hourOfDay, int minute) {
+        ZonedDateTime now = ZonedDateTime.now();
+        long nowInMillis = now.toInstant().toEpochMilli();
+        ZonedDateTime notificationTime = ZonedDateTime.now().with(LocalTime.of(hourOfDay, minute));
+        long notificationTimeInMillis = notificationTime.toInstant().toEpochMilli();
+
+        long offset;
+        boolean isRequestAheadOfCurrentTime = notificationTimeInMillis > nowInMillis;
+        if (isRequestAheadOfCurrentTime) {
+            offset = notificationTimeInMillis - nowInMillis;
+        } else {
+            // Time has passed for today, set the job for tomorrow
+            ZonedDateTime tomorrow = notificationTime.plusDays(1);
+            long tomorrowInMillis = tomorrow.toInstant().toEpochMilli();
+            offset = tomorrowInMillis - nowInMillis;
+        }
+        scheduleJob(context, departureStation, arrivalStation, offset);
+    }
+
+    public void scheduleJob(Context context, String departureStation, String arrivalStation, long offset) {
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString("departureStation", departureStation);
         bundle.putString("arrivalStation", arrivalStation);
 
-        ZonedDateTime now = ZonedDateTime.now();
-        long nowInMillis = now.toInstant().toEpochMilli();
-        ZonedDateTime userRequestedTime = ZonedDateTime.now().with(LocalTime.of(hourOfDay, minute));
-        long requestTimeInMillis = userRequestedTime.toInstant().toEpochMilli();
-        long offset;
-        boolean isRequestAheadOfCurrentTime = requestTimeInMillis > nowInMillis;
-        if (isRequestAheadOfCurrentTime) {
-            offset = requestTimeInMillis - nowInMillis;
-        } else {
-            // Time has passed for today, set the job for tomorrow
-            ZonedDateTime tomorrow = userRequestedTime.plusDays(1);
-            long tomorrowInMillis = tomorrow.toInstant().toEpochMilli();
-            offset = tomorrowInMillis - nowInMillis;
-        }
-        
         mScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
         ComponentName service = new ComponentName(context.getPackageName(), NotificationJobService.class.getName());
 
