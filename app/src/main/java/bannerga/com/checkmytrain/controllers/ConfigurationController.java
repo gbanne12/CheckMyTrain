@@ -31,26 +31,31 @@ public class ConfigurationController {
     private static final int JOB_ID = 0;
 
     public void scheduleJob(Context context, String departureStation, String arrivalStation, int hourOfDay, int minute) {
-        mScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-        ComponentName service = new ComponentName(context.getPackageName(), NotificationJobService.class.getName());
-
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString("departureStation", departureStation);
         bundle.putString("arrivalStation", arrivalStation);
 
         ZonedDateTime now = ZonedDateTime.now();
-        ZonedDateTime userScheduledTime = now.with(LocalTime.of(hourOfDay, minute));
-        ZonedDateTime tomorrrow = userScheduledTime.plusDays(1);
-
         long nowInMillis = now.toInstant().toEpochMilli();
-        long userTimeInMillis = userScheduledTime.toInstant().toEpochMilli();
-        long tomorrowInMillis = tomorrrow.toInstant().toEpochMilli();
-        long offset = userTimeInMillis - nowInMillis;
+        ZonedDateTime userRequestedTime = ZonedDateTime.now().with(LocalTime.of(hourOfDay, minute));
+        long requestTimeInMillis = userRequestedTime.toInstant().toEpochMilli();
+        long offset;
+        boolean isRequestAheadOfCurrentTime = requestTimeInMillis > nowInMillis;
+        if (isRequestAheadOfCurrentTime) {
+            offset = requestTimeInMillis - nowInMillis;
+        } else {
+            // Time has passed for today, set the job for tomorrow
+            ZonedDateTime tomorrow = userRequestedTime.plusDays(1);
+            long tomorrowInMillis = tomorrow.toInstant().toEpochMilli();
+            offset = tomorrowInMillis - nowInMillis;
+        }
+        
+        mScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
+        ComponentName service = new ComponentName(context.getPackageName(), NotificationJobService.class.getName());
 
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, service);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
-                //TODO set time to be based off user input
                 .setMinimumLatency(offset)
                 .setExtras(bundle);
         JobInfo myJobInfo = builder.build();
