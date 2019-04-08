@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText departureStationEditText;
     private TextInputEditText arrivalStationEditText;
     private TextInputEditText timeEditText;
-    private Button submitButton;
-    private Button cancelButton;
     private int hourOfDay;
     private int minute;
     ConfigurationController controller = new ConfigurationController();
@@ -32,10 +30,12 @@ public class MainActivity extends AppCompatActivity {
         arrivalStationEditText = findViewById(R.id.arrival_station_input);
         timeEditText = findViewById(R.id.time_input);
         timeEditText.setOnClickListener(this::showTimePickerDialog);
-        submitButton = findViewById(R.id.button_submit);
+        Button submitButton = findViewById(R.id.button_submit);
         submitButton.setOnClickListener(this::onSubmitClick);
-        cancelButton = findViewById(R.id.button_cancel);
-        cancelButton.setOnClickListener((View v) -> controller.cancelJob(this));
+        Button cancelButton = findViewById(R.id.button_cancel);
+        cancelButton.setOnClickListener(this::onCancelClick);
+        Button pendingJobsButton = findViewById(R.id.button_pending_jobs);
+        pendingJobsButton.setOnClickListener(this::onPendingJobsClick);
     }
 
     @Override
@@ -60,20 +60,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onSubmitClick(View view) {
-        boolean isMissingUserInput = timeEditText.getText().toString().equals("")
-                || departureStationEditText.getText().toString().equals("")
-                || arrivalStationEditText.getText().toString().equals("");
-
-        if (!isMissingUserInput) {
-            String departureStation = departureStationEditText.getText().toString();
-            String arrivalStation = arrivalStationEditText.getText().toString();
-            controller.scheduleJob(this, departureStation, arrivalStation, hourOfDay, minute);
-        } else {
-            Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();
-        }
-    }
-
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
@@ -88,5 +74,27 @@ public class MainActivity extends AppCompatActivity {
             time = new StringBuilder().append(hourOfDay).append(":0").append(minute).toString();
         }
         timeEditText.setText(time);
+    }
+
+    public void onSubmitClick(View view) {
+        boolean isMissingUserInput = timeEditText.getText().toString().equals("")
+                || departureStationEditText.getText().toString().equals("")
+                || arrivalStationEditText.getText().toString().equals("");
+
+        if (!isMissingUserInput) {
+            String departureStation = departureStationEditText.getText().toString();
+            String arrivalStation = arrivalStationEditText.getText().toString();
+            controller.scheduleJob(this, departureStation, arrivalStation, hourOfDay, minute);
+        } else {
+            Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void onCancelClick(View v) {
+        controller.cancelJob(this);
+    }
+
+    private void onPendingJobsClick(View v) {
+        controller.getPendingJobs(this);
     }
 }

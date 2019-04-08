@@ -19,6 +19,7 @@ import java.net.URLConnection;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import bannerga.com.checkmytrain.activities.NotificationJobService;
@@ -27,8 +28,8 @@ import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 public class ConfigurationController {
 
-    private JobScheduler mScheduler;
     private static final int JOB_ID = 0;
+    private JobScheduler scheduler;
 
     public void scheduleJob(Context context, String departureStation, String arrivalStation, int hourOfDay, int minute) {
         ZonedDateTime now = ZonedDateTime.now();
@@ -54,7 +55,7 @@ public class ConfigurationController {
         bundle.putString("departureStation", departureStation);
         bundle.putString("arrivalStation", arrivalStation);
 
-        mScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
+        scheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
         ComponentName service = new ComponentName(context.getPackageName(), NotificationJobService.class.getName());
 
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, service);
@@ -63,14 +64,23 @@ public class ConfigurationController {
                 .setMinimumLatency(offset)
                 .setExtras(bundle);
         JobInfo myJobInfo = builder.build();
-        mScheduler.schedule(myJobInfo);
+        scheduler.schedule(myJobInfo);
     }
 
     public void cancelJob(Context context) {
-        if (mScheduler != null) {
-            mScheduler.cancelAll();
-            mScheduler = null;
+        if (scheduler != null) {
+            scheduler.cancelAll();
+            scheduler = null;
             Toast.makeText(context, "Jobs cancelled", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void getPendingJobs(Context context) {
+        if (scheduler != null) {
+            List<JobInfo> jobs = scheduler.getAllPendingJobs();
+            for (JobInfo job : jobs) {
+                Toast.makeText(context, "Pending Jobs: " + job.toString(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
