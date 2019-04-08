@@ -3,12 +3,12 @@ package bannerga.com.checkmytrain.activities;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import bannerga.com.checkmytrain.controllers.ConfigurationController;
 import bannerga.com.checkmytrain.notification.TrainNotification;
@@ -57,7 +57,9 @@ public class NotificationJobService extends JobService {
 
         @Override
         protected void onPostExecute(Map result) {
-            Toast.makeText(NotificationJobService.this, "Notification added in background", Toast.LENGTH_SHORT).show();
+            ConfigurationController controller = new ConfigurationController();
+            controller.scheduleJob(NotificationJobService.this,
+                    departureStation, arrivalStation, TimeUnit.DAYS.toMillis(1));
         }
     }
 }
