@@ -24,7 +24,7 @@
         </activity>
 
         <service
-            android:name=".activities.NotificationJobService"
+            android:name=".service.NotificationJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     </application>

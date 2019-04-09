@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bannerga.com.checkmytrain.activities.NotificationJobService;
+import bannerga.com.checkmytrain.service.NotificationJobService;
 
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
