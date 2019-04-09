@@ -1,5 +1,6 @@
 package bannerga.com.checkmytrain.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onPendingJobsClick(View v) {
-        controller.getPendingJobs(this);
+        Intent intent = new Intent(this, PendingJobsActivity.class);
+        startActivity(intent);
     }
 }

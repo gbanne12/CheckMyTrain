@@ -75,13 +75,16 @@ public class ConfigurationController {
         }
     }
 
-    public void getPendingJobs(Context context) {
+    public String getPendingJobs(Context context) {
+        String text = "PLACEHOLDER";
         if (scheduler != null) {
             List<JobInfo> jobs = scheduler.getAllPendingJobs();
             for (JobInfo job : jobs) {
                 Toast.makeText(context, "Pending Jobs: " + job.toString(), Toast.LENGTH_SHORT).show();
+                text = job.toString();
             }
         }
+        return text;
     }
 
     public JSONObject getJSONResponse(String originStation) throws Exception {
@@ -119,4 +122,5 @@ public class ConfigurationController {
         return map;
 
     }
+
 }
