@@ -4,7 +4,7 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.os.AsyncTask;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import bannerga.com.checkmytrain.controllers.ConfigurationController;
 import bannerga.com.checkmytrain.notification.TrainNotification;
+import bannerga.com.checkmytrain.query.Itinerary;
 
 public class NotificationJobService extends JobService {
 
@@ -44,9 +45,10 @@ public class NotificationJobService extends JobService {
         protected Map doInBackground(String... strings) {
             Map trainInfo = new HashMap();
             try {
-                ConfigurationController controller = new ConfigurationController();
-                JSONObject json = controller.getJSONResponse(departureStation);
-                trainInfo = controller.getTrainInformation(json, arrivalStation);
+                Itinerary itinerary = new Itinerary();
+                JSONArray json = itinerary.getTimetableFor(departureStation);
+                trainInfo = itinerary.getNextDepartureFor(json, arrivalStation);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
