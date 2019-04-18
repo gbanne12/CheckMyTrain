@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "journey")
 public class Journey {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
 

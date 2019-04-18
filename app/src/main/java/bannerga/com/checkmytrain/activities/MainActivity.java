@@ -1,6 +1,8 @@
 package bannerga.com.checkmytrain.activities;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
@@ -13,6 +15,9 @@ import android.widget.Toast;
 
 import bannerga.com.checkmytrain.R;
 import bannerga.com.checkmytrain.controllers.ConfigurationController;
+import bannerga.com.checkmytrain.data.Journey;
+import bannerga.com.checkmytrain.data.JourneyDAO;
+import bannerga.com.checkmytrain.data.JourneyDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,7 +101,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onPendingJobsClick(View v) {
+        new AsyncDatabaseTask(
+                departureStationEditText.getText().toString(),
+                arrivalStationEditText.getText().toString(),
+                timeEditText.getText().toString())
+                .execute();
+
         Intent intent = new Intent(this, PendingJobsActivity.class);
         startActivity(intent);
     }
+
+    public class AsyncDatabaseTask extends AsyncTask<String, String, String> {
+
+        private String departureStation;
+        private String arrivalStation;
+        private String time;
+
+        public AsyncDatabaseTask(String departureStation, String arrivalStation, String time) {
+            this.departureStation = departureStation;
+            this.arrivalStation = arrivalStation;
+            this.time = time;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            JourneyDatabase db = Room.databaseBuilder(MainActivity.this, JourneyDatabase.class, "journeys.db")
+                    .fallbackToDestructiveMigration()
+                    .build();
+            Journey journey = new Journey();
+            journey.setDestination(arrivalStation);
+            journey.setOrigin(departureStation);
+            journey.setTime(time);
+            JourneyDAO dao = db.dao();
+            dao.insertAll(journey);
+            return "pass";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+        }
+    }
+
 }
