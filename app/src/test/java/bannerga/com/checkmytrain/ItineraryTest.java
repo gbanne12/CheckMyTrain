@@ -27,12 +27,13 @@ public class ItineraryTest {
 
     private static JSONArray getDummyJsonArray() throws IOException, JSONException {
         StringBuilder responseString = new StringBuilder();
-        String line;
         File json = new File("src/test/res/example.json");
         FileInputStream is = new FileInputStream(json);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        while ((line = br.readLine()) != null) {
+        String line = br.readLine();
+        while (line != null) {
             responseString.append(line);
+            line = br.readLine();
         }
         JSONObject jsonOb = new JSONObject(responseString.toString());
         return (JSONArray) jsonOb.get("trainServices");
