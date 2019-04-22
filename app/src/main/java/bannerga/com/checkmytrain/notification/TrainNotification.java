@@ -10,6 +10,7 @@ import android.os.Build;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import bannerga.com.checkmytrain.R;
 import bannerga.com.checkmytrain.activities.MainActivity;
@@ -19,8 +20,8 @@ public class TrainNotification {
     public void issueNotification(Context context, Map trainInfo) {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        Notification.Builder builder = new Notification.Builder(context)
+        String id = UUID.randomUUID().toString();
+        Notification.Builder builder = new Notification.Builder(context, id)
                 .setContentIntent(getPendingIntent(context))
                 .setContentTitle("Status: " + trainInfo.get("delayed").toString())
                 .setContentText("Departure time: " + trainInfo.get("time").toString())
