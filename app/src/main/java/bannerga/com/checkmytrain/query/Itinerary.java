@@ -19,12 +19,12 @@ public class Itinerary {
         URLConnection connection = url.openConnection();
 
         StringBuilder responseString = new StringBuilder();
-        String line;
         BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        while ((line = br.readLine()) != null) {
+        String line = br.readLine();
+        while (line != null) {
             responseString.append(line);
+            line = br.readLine();
         }
-
         JSONObject json = new JSONObject(responseString.toString());
         return (JSONArray) json.get("trainServices");
     }
