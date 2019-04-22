@@ -20,8 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@color/colorPrimaryDark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="Saved Journeys"
             app:toolbarId="@+id/toolbar">
 
             <android.support.v7.widget.Toolbar

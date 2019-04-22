@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,9 +37,6 @@ public class PendingJobsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(PendingJobsActivity::onFloatingButtonClick);
-        departureStationText = findViewById(R.id.departureStationText);
-        arrivalStationText = findViewById(R.id.arrivalStationText);
-        timeText = findViewById(R.id.timeText);
         new AsyncReadDatabaseTask().execute();
     }
 
@@ -51,17 +49,20 @@ public class PendingJobsActivity extends AppCompatActivity {
             JourneyDAO dao = db.dao();
             List<Journey> journeys = dao.getAll();
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    departureStationText.setText(journeys.get(0).getOrigin());
-                    arrivalStationText.setText(journeys.get(0).getDestination());
-                    timeText.setText(journeys.get(0).getTime());
-                    // Stuff that updates the UI
-                }
-            });
-
-
+            for (Journey journey : journeys) {
+                runOnUiThread(() -> {
+                    LinearLayout container = findViewById(R.id.container);
+                    LinearLayout parent = new LinearLayout(PendingJobsActivity.this);
+                    View cardView = getLayoutInflater().inflate(R.layout.card, parent);
+                    container.addView(cardView);
+                    departureStationText = cardView.findViewById(R.id.departureStationText);
+                    departureStationText.setText(journey.getOrigin());
+                    arrivalStationText = cardView.findViewById(R.id.arrivalStationText);
+                    arrivalStationText.setText(journey.getDestination());
+                    timeText = cardView.findViewById(R.id.timeText);
+                    timeText.setText(journey.getTime());
+                });
+            }
             return "pass";
         }
 
