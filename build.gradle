@@ -17,6 +17,7 @@ allprojects {
     repositories {
         maven { url 'https://maven.google.com' }
         jcenter()
+        google()
     }
 }
 
@@ -25,6 +26,6 @@ task clean(type: Delete) {
 }
 
 ext {
-    roomVersion = '1.0.0'
-    archLifecycleVersion = '1.1.0'
+    roomVersion = '2.0.0-beta01'
+    archLifecycleVersion = '2.0.0-beta01'
 }
