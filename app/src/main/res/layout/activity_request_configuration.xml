@@ -14,7 +14,7 @@
         android:clipToPadding="false"
         android:orientation="vertical"
         android:padding="24dp"
-        android:paddingTop="16dp">
+        android:layout_marginBottom="@dimen/fab_margin">
 
         <android.support.design.widget.TextInputLayout
             style="@style/AppTheme.TextInputLayout"
@@ -75,8 +75,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:paddingStart="@dimen/fab_margin"
+            android:paddingEnd="@dimen/fab_margin"
             android:text="@string/button_label_cancel"
+            android:paddingStart="@dimen/fab_margin"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/button_pending_jobs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/button_label_pending"
             android:textColor="@color/colorPrimaryDark" />
 
     </LinearLayout>
