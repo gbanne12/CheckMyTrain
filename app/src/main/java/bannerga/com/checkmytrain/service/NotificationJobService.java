@@ -1,8 +1,10 @@
-package bannerga.com.checkmytrain.activities;
+package bannerga.com.checkmytrain.service;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 import org.json.JSONArray;
 
@@ -59,6 +61,11 @@ public class NotificationJobService extends JobService {
 
         @Override
         protected void onPostExecute(Map result) {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(NotificationJobService.this);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("departure_station", departureStation);
+            editor.apply();
+
             ConfigurationController controller = new ConfigurationController();
             controller.scheduleJob(NotificationJobService.this,
                     departureStation, arrivalStation, TimeUnit.DAYS.toMillis(1));
