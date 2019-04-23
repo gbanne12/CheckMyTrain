@@ -19,6 +19,10 @@ public interface StationDAO {
     @Query("SELECT * FROM station WHERE name LIKE :name LIMIT 1")
     Station findByName(String name);
 
+
+    @Query("SELECT * FROM station WHERE name LIKE :name")
+    List<Station> findByPartialName(String name);
+
     @Query("SELECT * FROM station WHERE crs LIKE :crs LIMIT 1")
     Station findByCrs(String crs);
 

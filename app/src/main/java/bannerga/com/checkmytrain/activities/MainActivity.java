@@ -1,18 +1,30 @@
 package bannerga.com.checkmytrain.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.room.Room;
 import bannerga.com.checkmytrain.R;
 import bannerga.com.checkmytrain.controllers.ConfigurationController;
+import bannerga.com.checkmytrain.data.AppDatabase;
+import bannerga.com.checkmytrain.data.Station;
+import bannerga.com.checkmytrain.data.StationDAO;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +42,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_configuration);
         departureStationEditText = findViewById(R.id.departure_station_input);
+        departureStationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 2) {
+                    new AsyncStationSearchJob(departureStationEditText.getText().toString()).execute();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         arrivalStationEditText = findViewById(R.id.arrival_station_input);
         timeEditText = findViewById(R.id.time_input);
         timeEditText.setOnClickListener(this::showTimePickerDialog);
@@ -90,4 +120,41 @@ public class MainActivity extends AppCompatActivity {
         }
         timeEditText.setText(time);
     }
+
+
+    public class AsyncStationSearchJob extends AsyncTask<String, Void, String> {
+
+        private String input;
+
+        public AsyncStationSearchJob(String input) {
+            this.input = input;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            AppDatabase db =
+                    Room.databaseBuilder(MainActivity.this, AppDatabase.class, "journey.db").build();
+
+            StationDAO stationDAO = db.stationDao();
+            List<Station> stations = stationDAO.findByPartialName("%" + input + "%");
+            List<String> names = new ArrayList<>();
+            for (Station station : stations) {
+                String name = station.getName();
+                names.add(name);
+            }
+            ArrayAdapter<String> adapter =
+                    new ArrayAdapter<>(MainActivity.this,
+                            android.R.layout.simple_list_item_1, names);
+
+            ListView list = findViewById(R.id.singleRow);
+            runOnUiThread(() -> list.setAdapter(adapter));
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+        }
+    }
+
 }
