@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import bannerga.com.checkmytrain.R;
-import bannerga.com.checkmytrain.view.activities.MainActivity;
+import bannerga.com.checkmytrain.view.activities.JourneyActivity;
 
 public class TrainNotification {
 
@@ -48,7 +48,7 @@ public class TrainNotification {
     }
 
     private PendingIntent getPendingIntent(Context context) {
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, JourneyActivity.class);
         return PendingIntent.getActivity(context,
                 getRandomDigit(),
                 notificationIntent,

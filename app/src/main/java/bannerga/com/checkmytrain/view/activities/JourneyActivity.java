@@ -32,7 +32,7 @@ import bannerga.com.checkmytrain.data.JourneyDatabase;
 import bannerga.com.checkmytrain.data.Station;
 import bannerga.com.checkmytrain.data.StationDAO;
 
-public class MainActivity extends AppCompatActivity {
+public class JourneyActivity extends AppCompatActivity {
 
     private TextInputEditText departureStationEditText;
     private TextInputEditText arrivalStationEditText;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_configuration);
+        setContentView(R.layout.activity_journey);
         departureStationEditText = findViewById(R.id.departure_station_input);
         departureStationEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             AppDatabase db =
-                    Room.databaseBuilder(MainActivity.this, AppDatabase.class, "journey.db").build();
+                    Room.databaseBuilder(JourneyActivity.this, AppDatabase.class, "journey.db").build();
 
             StationDAO stationDAO = db.stationDao();
             List<Station> stations = stationDAO.findByPartialName("%" + input + "%");
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 names.add(name);
             }
             ArrayAdapter<String> adapter =
-                    new ArrayAdapter<>(MainActivity.this,
+                    new ArrayAdapter<>(JourneyActivity.this,
                             android.R.layout.simple_list_item_1, names);
 
             ListView list = findViewById(R.id.singleRow);
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            JourneyDatabase db = Room.databaseBuilder(MainActivity.this, JourneyDatabase.class,
+            JourneyDatabase db = Room.databaseBuilder(JourneyActivity.this, JourneyDatabase.class,
                     "journeys.db")
                     .fallbackToDestructiveMigration()
                     .build();
