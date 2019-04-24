@@ -1,8 +1,7 @@
 package bannerga.com.checkmytrain.activities;
 
-import android.arch.persistence.room.Room;
+
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,10 +24,10 @@ import androidx.fragment.app.DialogFragment;
 import androidx.room.Room;
 import bannerga.com.checkmytrain.R;
 import bannerga.com.checkmytrain.controllers.ConfigurationController;
+import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.data.JourneyDAO;
 import bannerga.com.checkmytrain.data.JourneyDatabase;
-import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Station;
 import bannerga.com.checkmytrain.data.StationDAO;
 
@@ -69,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
         arrivalStationEditText = findViewById(R.id.arrival_station_input);
         timeEditText = findViewById(R.id.time_input);
         timeEditText.setOnClickListener(this::showTimePickerDialog);
-        submitButton = findViewById(R.id.button_submit);
+        Button submitButton = findViewById(R.id.button_submit);
         submitButton.setOnClickListener(this::onSubmitClick);
-        cancelButton = findViewById(R.id.button_cancel);
-        cancelButton.setOnClickListener((View v) -> controller.cancelJob(this));
+        Button cancelButton = findViewById(R.id.button_cancel);
+        cancelButton.setOnClickListener(this::onCancelClick);
+        Button pendingJobsButton = findViewById(R.id.button_pending_jobs);
+        pendingJobsButton.setOnClickListener(this::onPendingJobsClick);
     }
 
     @Override
@@ -131,6 +132,19 @@ public class MainActivity extends AppCompatActivity {
         controller.cancelJob(this);
     }
 
+    private void onPendingJobsClick(View v) {
+        new AsyncDatabaseTask(
+                departureStationEditText.getText().toString(),
+                arrivalStationEditText.getText().toString(),
+                timeEditText.getText().toString())
+                .execute();
+
+        Intent intent = new Intent(this, PendingJobsActivity.class);
+        startActivity(intent);
+    }
+
+
+
 
     public class AsyncStationSearchJob extends AsyncTask<String, Void, String> {
 
@@ -167,18 +181,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-}
-
-    private void onPendingJobsClick(View v) {
-        new AsyncDatabaseTask(
-                departureStationEditText.getText().toString(),
-                arrivalStationEditText.getText().toString(),
-                timeEditText.getText().toString())
-                .execute();
-
-        Intent intent = new Intent(this, PendingJobsActivity.class);
-        startActivity(intent);
-    }
 
     public class AsyncDatabaseTask extends AsyncTask<String, String, String> {
 
@@ -194,7 +196,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            JourneyDatabase db = Room.databaseBuilder(MainActivity.this, JourneyDatabase.class, "journeys.db")
+            JourneyDatabase db = Room.databaseBuilder(MainActivity.this, JourneyDatabase.class,
+                    "journeys.db")
                     .fallbackToDestructiveMigration()
                     .build();
             Journey journey = new Journey();
