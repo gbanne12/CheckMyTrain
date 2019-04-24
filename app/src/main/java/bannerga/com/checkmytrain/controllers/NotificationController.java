@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.service;
+package bannerga.com.checkmytrain.controllers;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
@@ -12,11 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import bannerga.com.checkmytrain.controllers.ConfigurationController;
-import bannerga.com.checkmytrain.notification.TrainNotification;
-import bannerga.com.checkmytrain.query.Itinerary;
+import bannerga.com.checkmytrain.json.Itinerary;
+import bannerga.com.checkmytrain.view.notification.TrainNotification;
 
-public class NotificationJobService extends JobService {
+public class NotificationController extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
@@ -55,19 +54,19 @@ public class NotificationJobService extends JobService {
                 e.printStackTrace();
             }
             TrainNotification notification = new TrainNotification();
-            notification.issueNotification(NotificationJobService.this, trainInfo);
+            notification.issueNotification(NotificationController.this, trainInfo);
             return new HashMap();
         }
 
         @Override
         protected void onPostExecute(Map result) {
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(NotificationJobService.this);
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(NotificationController.this);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("departure_station", departureStation);
             editor.apply();
 
             ConfigurationController controller = new ConfigurationController();
-            controller.scheduleJob(NotificationJobService.this,
+            controller.scheduleJob(NotificationController.this,
                     departureStation, arrivalStation, TimeUnit.DAYS.toMillis(1));
         }
     }

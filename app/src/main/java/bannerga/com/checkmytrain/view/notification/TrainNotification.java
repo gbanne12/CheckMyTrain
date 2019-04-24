@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.notification;
+package bannerga.com.checkmytrain.view.notification;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import bannerga.com.checkmytrain.R;
-import bannerga.com.checkmytrain.activities.MainActivity;
+import bannerga.com.checkmytrain.view.activities.MainActivity;
 
 public class TrainNotification {
 

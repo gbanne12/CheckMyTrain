@@ -22,8 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bannerga.com.checkmytrain.service.NotificationJobService;
-
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 public class ConfigurationController {
@@ -56,7 +54,7 @@ public class ConfigurationController {
         bundle.putString("arrivalStation", arrivalStation);
 
         scheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-        ComponentName service = new ComponentName(context.getPackageName(), NotificationJobService.class.getName());
+        ComponentName service = new ComponentName(context.getPackageName(), NotificationController.class.getName());
 
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, service);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)

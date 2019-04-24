@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.query;
+package bannerga.com.checkmytrain.json;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

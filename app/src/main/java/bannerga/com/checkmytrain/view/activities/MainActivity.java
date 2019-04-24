@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.activities;
+package bannerga.com.checkmytrain.view.activities;
 
 
 import android.content.Intent;
@@ -14,14 +14,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.room.Room;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-import androidx.room.Room;
 import bannerga.com.checkmytrain.R;
 import bannerga.com.checkmytrain.controllers.ConfigurationController;
 import bannerga.com.checkmytrain.data.AppDatabase;

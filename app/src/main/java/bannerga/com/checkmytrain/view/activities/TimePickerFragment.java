@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.activities;
+package bannerga.com.checkmytrain.view.activities;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

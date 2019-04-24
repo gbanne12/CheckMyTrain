@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
-import bannerga.com.checkmytrain.query.Itinerary;
+import bannerga.com.checkmytrain.json.Itinerary;
 
 public class ItineraryTest {
 
