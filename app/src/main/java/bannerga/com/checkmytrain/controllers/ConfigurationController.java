@@ -5,28 +5,28 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.PersistableBundle;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import androidx.room.Room;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import bannerga.com.checkmytrain.data.Journey;
+import bannerga.com.checkmytrain.data.JourneyDAO;
+import bannerga.com.checkmytrain.data.JourneyDatabase;
 
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 public class ConfigurationController {
+    private Context context;
+    private int jobId;
 
-    private static final int JOB_ID = 0;
+    public ConfigurationController(Context context) {
+        this.context = context;
+    }
     private JobScheduler scheduler;
 
     public void scheduleJob(Context context, String departureStation, String arrivalStation, int hourOfDay, int minute) {
@@ -45,10 +45,13 @@ public class ConfigurationController {
             long tomorrowInMillis = tomorrow.toInstant().toEpochMilli();
             offset = tomorrowInMillis - nowInMillis;
         }
+
+        new AsyncDatabaseTask(departureStation, arrivalStation, hourOfDay + ":" + minute).execute();
         scheduleJob(context, departureStation, arrivalStation, offset);
+
     }
 
-    public void scheduleJob(Context context, String departureStation, String arrivalStation, long offset) {
+    public int scheduleJob(Context context, String departureStation, String arrivalStation, long offset) {
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString("departureStation", departureStation);
         bundle.putString("arrivalStation", arrivalStation);
@@ -56,13 +59,14 @@ public class ConfigurationController {
         scheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
         ComponentName service = new ComponentName(context.getPackageName(), NotificationController.class.getName());
 
-        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, service);
+        JobInfo.Builder builder = new JobInfo.Builder(jobId, service);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
                 .setMinimumLatency(offset)
                 .setExtras(bundle);
         JobInfo myJobInfo = builder.build();
         scheduler.schedule(myJobInfo);
+        return myJobInfo.getId();
     }
 
     public void cancelJob(Context context) {
@@ -73,52 +77,37 @@ public class ConfigurationController {
         }
     }
 
-    public String getPendingJobs(Context context) {
-        String text = "PLACEHOLDER";
-        if (scheduler != null) {
-            List<JobInfo> jobs = scheduler.getAllPendingJobs();
-            for (JobInfo job : jobs) {
-                Toast.makeText(context, "Pending Jobs: " + job.toString(), Toast.LENGTH_SHORT).show();
-                text = job.toString();
-            }
-        }
-        return text;
-    }
+    public class AsyncDatabaseTask extends AsyncTask<String, String, String> {
+        private String departureStation;
+        private String arrivalStation;
+        private String time;
 
-    public JSONObject getJSONResponse(String originStation) throws Exception {
-        String huxleyAddress = "http://huxley.apphb.com/all/" + originStation +
-                "?accessToken=3dfc0955-c0b0-4cb0-a8ca-9ddcf9d850cf&expand=true";
-        URL url = new URL(huxleyAddress);
-        URLConnection connection = url.openConnection();
-
-        StringBuilder responseString = new StringBuilder();
-        String line;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        while ((line = reader.readLine()) != null) {
-            responseString.append(line);
+        public AsyncDatabaseTask(String departureStation, String arrivalStation, String time) {
+            this.departureStation = departureStation;
+            this.arrivalStation = arrivalStation;
+            this.time = time;
         }
 
-        return new JSONObject(responseString.toString());
-    }
-
-    public Map getTrainInformation(JSONObject json, String stationName) throws JSONException {
-        Map map = new HashMap();
-        if (json != null) {
-            JSONArray jsonArray = (JSONArray) json.get("trainServices");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                Boolean isDestination = ((JSONObject) jsonArray.get(i)).get("destination").toString().contains(stationName);
-                if (isDestination) {
-                    map.put("cancelled", ((JSONObject) jsonArray.get(i)).getBoolean("isCancelled"));
-                    map.put("time", ((JSONObject) jsonArray.get(i)).get("std").toString());
-                    map.put("delayed", ((JSONObject) jsonArray.get(i)).get("etd").toString());
-                    break;
-                }
-            }
-        } else {
-            System.out.println("JSON is null, aborting attempt to find time");
+        @Override
+        protected String doInBackground(String... strings) {
+            JourneyDatabase db = Room.databaseBuilder(context, JourneyDatabase.class,
+                    "journeys.db")
+                    .fallbackToDestructiveMigration()
+                    .build();
+            Journey journey = new Journey();
+            journey.setDestination(arrivalStation);
+            journey.setOrigin(departureStation);
+            journey.setTime(time);
+            JourneyDAO dao = db.dao();
+            dao.insertAll(journey);
+            jobId = dao.getLast().getId();
+            return "pass";
         }
-        return map;
 
+        @Override
+        protected void onPostExecute(String result) {
+
+        }
     }
 
 }

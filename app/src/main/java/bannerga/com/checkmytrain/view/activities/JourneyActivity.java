@@ -26,9 +26,6 @@ import java.util.List;
 import bannerga.com.checkmytrain.R;
 import bannerga.com.checkmytrain.controllers.ConfigurationController;
 import bannerga.com.checkmytrain.data.AppDatabase;
-import bannerga.com.checkmytrain.data.Journey;
-import bannerga.com.checkmytrain.data.JourneyDAO;
-import bannerga.com.checkmytrain.data.JourneyDatabase;
 import bannerga.com.checkmytrain.data.Station;
 import bannerga.com.checkmytrain.data.StationDAO;
 
@@ -37,11 +34,9 @@ public class JourneyActivity extends AppCompatActivity {
     private TextInputEditText departureStationEditText;
     private TextInputEditText arrivalStationEditText;
     private TextInputEditText timeEditText;
-    private Button submitButton;
-    private Button cancelButton;
     private int hourOfDay;
     private int minute;
-    ConfigurationController controller = new ConfigurationController();
+    ConfigurationController controller = new ConfigurationController(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,18 +129,9 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     private void onPendingJobsClick(View v) {
-        new AsyncDatabaseTask(
-                departureStationEditText.getText().toString(),
-                arrivalStationEditText.getText().toString(),
-                timeEditText.getText().toString())
-                .execute();
-
         Intent intent = new Intent(this, PendingJobsActivity.class);
         startActivity(intent);
     }
-
-
-
 
     public class AsyncStationSearchJob extends AsyncTask<String, Void, String> {
 
@@ -181,39 +167,4 @@ public class JourneyActivity extends AppCompatActivity {
 
         }
     }
-
-
-    public class AsyncDatabaseTask extends AsyncTask<String, String, String> {
-
-        private String departureStation;
-        private String arrivalStation;
-        private String time;
-
-        public AsyncDatabaseTask(String departureStation, String arrivalStation, String time) {
-            this.departureStation = departureStation;
-            this.arrivalStation = arrivalStation;
-            this.time = time;
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            JourneyDatabase db = Room.databaseBuilder(JourneyActivity.this, JourneyDatabase.class,
-                    "journeys.db")
-                    .fallbackToDestructiveMigration()
-                    .build();
-            Journey journey = new Journey();
-            journey.setDestination(arrivalStation);
-            journey.setOrigin(departureStation);
-            journey.setTime(time);
-            JourneyDAO dao = db.dao();
-            dao.insertAll(journey);
-            return "pass";
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-        }
-    }
-
 }

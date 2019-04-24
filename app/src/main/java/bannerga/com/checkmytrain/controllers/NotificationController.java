@@ -65,7 +65,7 @@ public class NotificationController extends JobService {
             editor.putString("departure_station", departureStation);
             editor.apply();
 
-            ConfigurationController controller = new ConfigurationController();
+            ConfigurationController controller = new ConfigurationController(NotificationController.this);
             controller.scheduleJob(NotificationController.this,
                     departureStation, arrivalStation, TimeUnit.DAYS.toMillis(1));
         }
