@@ -17,9 +17,9 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 import bannerga.com.checkmytrain.R;
+import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.data.JourneyDAO;
-import bannerga.com.checkmytrain.data.JourneyDatabase;
 
 public class PendingJobsActivity extends AppCompatActivity {
 
@@ -46,8 +46,8 @@ public class PendingJobsActivity extends AppCompatActivity {
     public class AsyncReadDatabaseTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            JourneyDatabase db = Room.databaseBuilder(PendingJobsActivity.this,
-                    JourneyDatabase.class, "journeys.db")
+            AppDatabase db = Room.databaseBuilder(PendingJobsActivity.this,
+                    AppDatabase.class, "journeys.db")
                     .fallbackToDestructiveMigration()
                     .build();
             JourneyDAO dao = db.dao();

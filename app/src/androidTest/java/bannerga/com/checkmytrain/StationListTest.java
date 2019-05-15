@@ -1,5 +1,8 @@
 package bannerga.com.checkmytrain;
 
+import androidx.room.Room;
+import androidx.test.InstrumentationRegistry;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,8 +16,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-import androidx.room.Room;
-import androidx.test.InstrumentationRegistry;
 import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Station;
 import bannerga.com.checkmytrain.data.StationDAO;
@@ -39,8 +40,6 @@ public class StationListTest {
             station.setCrs(crs);
             dao.insertAll(station);
         }
-
-
     }
 
     @Test

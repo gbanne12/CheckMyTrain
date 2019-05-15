@@ -14,9 +14,9 @@ import androidx.room.Room;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
+import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.data.JourneyDAO;
-import bannerga.com.checkmytrain.data.JourneyDatabase;
 
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
@@ -90,7 +90,7 @@ public class ConfigurationController {
 
         @Override
         protected String doInBackground(String... strings) {
-            JourneyDatabase db = Room.databaseBuilder(context, JourneyDatabase.class,
+            AppDatabase db = Room.databaseBuilder(context, AppDatabase.class,
                     "journeys.db")
                     .fallbackToDestructiveMigration()
                     .build();

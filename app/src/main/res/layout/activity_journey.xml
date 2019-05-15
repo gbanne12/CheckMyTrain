@@ -10,20 +10,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fab_margin"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:layout_marginBottom="@dimen/fab_margin">
+        android:padding="24dp">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/AppTheme.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_departure_station">
-            <!--app:hintTextAppearance="@style/AppTheme.TextInputLayout.HintText"-->
 
-            <com.google.android.material.textfield.TextInputEditText
+            <bannerga.com.checkmytrain.view.custom.TextInputAutoCompleteTextView
                 android:id="@+id/departure_station_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,6 +30,12 @@
                 android:maxLines="1"
                 android:text="MUI" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <ListView
+            android:id="@+id/station_results_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"></ListView>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/AppTheme.TextInputLayout"
@@ -75,9 +80,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
+            android:paddingStart="@dimen/fab_margin"
             android:paddingEnd="@dimen/fab_margin"
             android:text="@string/button_label_cancel"
-            android:paddingStart="@dimen/fab_margin"
             android:textColor="@color/colorPrimaryDark" />
 
         <Button
