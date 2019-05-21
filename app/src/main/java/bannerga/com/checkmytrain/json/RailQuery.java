@@ -1,16 +1,18 @@
 package bannerga.com.checkmytrain.json;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Itinerary {
+public class RailQuery {
 
     public JSONArray getTimetableFor(String station) throws Exception {
         String huxleyAddress = "http://huxley.apphb.com/all/" + station +
@@ -43,6 +45,23 @@ public class Itinerary {
                 }
             }
         return map;
+    }
+
+    public JSONArray getStations() throws IOException, JSONException {
+        StringBuilder responseString = new StringBuilder();
+        //File json = new File("src/test/res/example.json");
+        //FileInputStream is = new FileInputStream(json);
+        String huxleyAddress = "http://huxley.apphb.com/crs";
+        URL url = new URL(huxleyAddress);
+        URLConnection connection = url.openConnection();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String line = br.readLine();
+        while (line != null) {
+            responseString.append(line);
+            line = br.readLine();
+        }
+        return new JSONArray(responseString.toString());
     }
 
 

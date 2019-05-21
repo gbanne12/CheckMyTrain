@@ -65,8 +65,7 @@ public class JourneyActivity extends AppCompatActivity {
         arrivalStationEditText = findViewById(R.id.arrival_station_input);
         timeEditText = findViewById(R.id.time_input);
         timeEditText.setOnClickListener(this::showTimePickerDialog);
-
-        ;
+        new PopulateStationTableAsyncTask(this);
     }
 
     @Override

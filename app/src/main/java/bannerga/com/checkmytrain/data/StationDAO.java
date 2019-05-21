@@ -1,11 +1,11 @@
 package bannerga.com.checkmytrain.data;
 
-import java.util.List;
-
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+
+import java.util.List;
 
 @Dao
 public interface StationDAO {
@@ -26,9 +26,13 @@ public interface StationDAO {
     @Query("SELECT * FROM station WHERE crs LIKE :crs LIMIT 1")
     Station findByCrs(String crs);
 
+    @Query("DELETE FROM station")
+    void wipeTable();
+
     @Insert
     void insertAll(Station... stations);
 
     @Delete
     void delete(Station station);
+
 }

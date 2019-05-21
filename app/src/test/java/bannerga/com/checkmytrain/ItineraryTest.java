@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
-import bannerga.com.checkmytrain.json.Itinerary;
+import bannerga.com.checkmytrain.json.RailQuery;
 
 public class ItineraryTest {
 
@@ -41,30 +41,30 @@ public class ItineraryTest {
 
     @Test
     public void getHuxleyResponseTest() throws Exception {
-        Itinerary itinerary = new Itinerary();
-        JSONArray response = itinerary.getTimetableFor("MUI");
+        RailQuery railQuery = new RailQuery();
+        JSONArray response = railQuery.getTimetableFor("MUI");
         Assert.assertNotNull(response);
     }
 
     @Test
     public void getParseNextTrainTime() throws Exception {
-        Itinerary itinerary = new Itinerary();
-        Map info = itinerary.getNextDepartureFor(dummyJson, "Glasgow Central");
+        RailQuery railQuery = new RailQuery();
+        Map info = railQuery.getNextDepartureFor(dummyJson, "Glasgow Central");
         Assert.assertEquals("15:11", info.get("time").toString());
     }
 
     @Test
     public void canParseDelayedInformation() throws Exception {
-        Itinerary itinerary = new Itinerary();
-        Map info = itinerary.getNextDepartureFor(dummyJson, "Glasgow Central");
+        RailQuery railQuery = new RailQuery();
+        Map info = railQuery.getNextDepartureFor(dummyJson, "Glasgow Central");
         String isDelayed = info.get("delayed").toString();
         Assert.assertTrue(isDelayed.equals("On time") || isDelayed.equals("Delayed"));
     }
 
     @Test
     public void canParseCancelledInformation() throws Exception {
-        Itinerary itinerary = new Itinerary();
-        Map info = itinerary.getNextDepartureFor(dummyJson, "Glasgow Central");
+        RailQuery railQuery = new RailQuery();
+        Map info = railQuery.getNextDepartureFor(dummyJson, "Glasgow Central");
         String cancelled = info.get("cancelled").toString();
         Assert.assertTrue(cancelled.equals("true") || cancelled.equals("false"));
     }

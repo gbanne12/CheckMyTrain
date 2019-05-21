@@ -91,7 +91,7 @@ public class ConfigurationController {
         @Override
         protected String doInBackground(String... strings) {
             AppDatabase db = Room.databaseBuilder(context, AppDatabase.class,
-                    "journeys.db")
+                    "checkmytrain.db")
                     .fallbackToDestructiveMigration()
                     .build();
             Journey journey = new Journey();

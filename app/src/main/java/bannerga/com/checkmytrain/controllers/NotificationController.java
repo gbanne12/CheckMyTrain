@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import bannerga.com.checkmytrain.json.Itinerary;
+import bannerga.com.checkmytrain.json.RailQuery;
 import bannerga.com.checkmytrain.view.notification.TrainNotification;
 
 public class NotificationController extends JobService {
@@ -46,9 +46,9 @@ public class NotificationController extends JobService {
         protected Map doInBackground(String... strings) {
             Map trainInfo = new HashMap();
             try {
-                Itinerary itinerary = new Itinerary();
-                JSONArray json = itinerary.getTimetableFor(departureStation);
-                trainInfo = itinerary.getNextDepartureFor(json, arrivalStation);
+                RailQuery railQuery = new RailQuery();
+                JSONArray json = railQuery.getTimetableFor(departureStation);
+                trainInfo = railQuery.getNextDepartureFor(json, arrivalStation);
 
             } catch (Exception e) {
                 e.printStackTrace();

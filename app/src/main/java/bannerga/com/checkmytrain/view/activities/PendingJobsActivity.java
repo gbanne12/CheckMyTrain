@@ -47,7 +47,7 @@ public class PendingJobsActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             AppDatabase db = Room.databaseBuilder(PendingJobsActivity.this,
-                    AppDatabase.class, "journeys.db")
+                    AppDatabase.class, "checkmytrain.db")
                     .fallbackToDestructiveMigration()
                     .build();
             JourneyDAO dao = db.dao();

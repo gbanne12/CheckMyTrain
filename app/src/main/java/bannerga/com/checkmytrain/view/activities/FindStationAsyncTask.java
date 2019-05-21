@@ -31,7 +31,7 @@ public class FindStationAsyncTask extends AsyncTask<String, Void, ArrayAdapter<S
     @Override
     protected ArrayAdapter<String> doInBackground(String... strings) {
         Context context = contextRef.get();
-        AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, "journey.db")
+        AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, "checkmytrain.db")
                 .fallbackToDestructiveMigration()
                 .build();
 
