@@ -3,8 +3,6 @@ package bannerga.com.checkmytrain.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,10 +20,10 @@ import bannerga.com.checkmytrain.controllers.ConfigurationController;
 
 public class JourneyActivity extends AppCompatActivity {
 
-    ConfigurationController controller = new ConfigurationController(this);
-    private TextInputEditText arrivalStationEditText;
-    private TextInputEditText timeEditText;
-    private AutoCompleteTextView departureStationInput;
+    private ConfigurationController controller = new ConfigurationController(this);
+    private AutoCompleteTextView arrivalStationText;
+    private AutoCompleteTextView departureStationText;
+    private TextInputEditText timeText;
     private int hourOfDay;
     private int minute;
 
@@ -41,30 +39,12 @@ public class JourneyActivity extends AppCompatActivity {
         Button pendingJobsButton = findViewById(R.id.button_pending_jobs);
         pendingJobsButton.setOnClickListener(this::onPendingJobsClick);
 
-        departureStationInput = findViewById(R.id.departure_station_input);
-        departureStationInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence chars, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String input = s.toString();
-                int count = input.length();
-                if (count > 2) {
-                    new FindStationAsyncTask(input, departureStationInput, JourneyActivity.this).execute();
-                }
-            }
-        });
-        arrivalStationEditText = findViewById(R.id.arrival_station_input);
-        timeEditText = findViewById(R.id.time_input);
-        timeEditText.setOnClickListener(this::showTimePickerDialog);
+        departureStationText = findViewById(R.id.departure_station_input);
+        departureStationText.addTextChangedListener(new StationTextWatcher(departureStationText, this));
+        arrivalStationText = findViewById(R.id.arrival_station_input);
+        arrivalStationText.addTextChangedListener(new StationTextWatcher(arrivalStationText, this));
+        timeText = findViewById(R.id.time_input);
+        timeText.setOnClickListener(this::showTimePickerDialog);
         new PopulateStationTableAsyncTask(this).execute();
     }
 
@@ -102,16 +82,16 @@ public class JourneyActivity extends AppCompatActivity {
         if (minute < 10) {
             time = hourOfDay + ":0" + minute;
         }
-        timeEditText.setText(time);
+        timeText.setText(time);
     }
 
     public void onSubmitClick(View view) {
-        boolean isMissingUserInput = timeEditText.getText().toString().equals("")
-                || arrivalStationEditText.getText().toString().equals("");
+        boolean isMissingUserInput = timeText.getText().toString().equals("")
+                || arrivalStationText.getText().toString().equals("");
 
         if (!isMissingUserInput) {
-            String departureStation = departureStationInput.getText().toString();
-            String arrivalStation = arrivalStationEditText.getText().toString();
+            String departureStation = departureStationText.getText().toString();
+            String arrivalStation = arrivalStationText.getText().toString();
             controller.scheduleJob(this, departureStation, arrivalStation, hourOfDay, minute);
         } else {
             Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();

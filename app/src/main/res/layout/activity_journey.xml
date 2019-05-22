@@ -27,15 +27,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:maxLines="1"
-                android:text="MUI" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ListView
-            android:id="@+id/station_results_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"></ListView>
+        <!-- <ListView
+             android:id="@+id/station_results_list"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:visibility="visible"></ListView>-->
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/AppTheme.TextInputLayout"
@@ -43,13 +42,12 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_arrival_station">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <bannerga.com.checkmytrain.view.custom.TextInputAutoCompleteTextView
                 android:id="@+id/arrival_station_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:maxLines="1"
-                android:text="Glasgow Central" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
