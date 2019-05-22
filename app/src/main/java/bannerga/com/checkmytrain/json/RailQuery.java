@@ -49,8 +49,6 @@ public class RailQuery {
 
     public JSONArray getStations() throws IOException, JSONException {
         StringBuilder responseString = new StringBuilder();
-        //File json = new File("src/test/res/example.json");
-        //FileInputStream is = new FileInputStream(json);
         String huxleyAddress = "http://huxley.apphb.com/crs";
         URL url = new URL(huxleyAddress);
         URLConnection connection = url.openConnection();
