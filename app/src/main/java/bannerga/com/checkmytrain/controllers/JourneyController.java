@@ -17,14 +17,15 @@ import java.time.ZonedDateTime;
 import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.data.JourneyDAO;
+import bannerga.com.checkmytrain.notification.NotificationService;
 
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
-public class ConfigurationController {
+public class JourneyController {
     private Context context;
     private int jobId;
 
-    public ConfigurationController(Context context) {
+    public JourneyController(Context context) {
         this.context = context;
     }
     private JobScheduler scheduler;
@@ -46,9 +47,8 @@ public class ConfigurationController {
             offset = tomorrowInMillis - nowInMillis;
         }
 
-        new AsyncDatabaseTask(departureStation, arrivalStation, hourOfDay + ":" + minute).execute();
         scheduleJob(context, departureStation, arrivalStation, offset);
-
+        new WriteJobAsyncTask(departureStation, arrivalStation, hourOfDay + ":" + minute).execute();
     }
 
     public int scheduleJob(Context context, String departureStation, String arrivalStation, long offset) {
@@ -57,7 +57,7 @@ public class ConfigurationController {
         bundle.putString("arrivalStation", arrivalStation);
 
         scheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-        ComponentName service = new ComponentName(context.getPackageName(), NotificationController.class.getName());
+        ComponentName service = new ComponentName(context.getPackageName(), NotificationService.class.getName());
 
         JobInfo.Builder builder = new JobInfo.Builder(jobId, service);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
@@ -77,12 +77,12 @@ public class ConfigurationController {
         }
     }
 
-    public class AsyncDatabaseTask extends AsyncTask<String, String, String> {
+    public class WriteJobAsyncTask extends AsyncTask<String, String, String> {
         private String departureStation;
         private String arrivalStation;
         private String time;
 
-        public AsyncDatabaseTask(String departureStation, String arrivalStation, String time) {
+        public WriteJobAsyncTask(String departureStation, String arrivalStation, String time) {
             this.departureStation = departureStation;
             this.arrivalStation = arrivalStation;
             this.time = time;

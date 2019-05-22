@@ -16,11 +16,11 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
 import bannerga.com.checkmytrain.R;
-import bannerga.com.checkmytrain.controllers.ConfigurationController;
+import bannerga.com.checkmytrain.controllers.JourneyController;
 
 public class JourneyActivity extends AppCompatActivity {
 
-    private ConfigurationController controller = new ConfigurationController(this);
+    private JourneyController controller = new JourneyController(this);
     private AutoCompleteTextView arrivalStationText;
     private AutoCompleteTextView departureStationText;
     private TextInputEditText timeText;

@@ -28,7 +28,7 @@
         </activity>
 
         <service
-            android:name=".controllers.NotificationController"
+            android:name=".notification.NotificationService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
