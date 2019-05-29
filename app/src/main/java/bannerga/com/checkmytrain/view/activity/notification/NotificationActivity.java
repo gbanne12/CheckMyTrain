@@ -40,10 +40,10 @@ public class NotificationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(NotificationActivity::onFloatingButtonClick);
-        new AsyncReadDatabaseTask().execute();
+        new ExistingJourneysAsyncTask().execute();
     }
 
-    public class AsyncReadDatabaseTask extends AsyncTask<String, Void, String> {
+    public class ExistingJourneysAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             AppDatabase db = Room.databaseBuilder(NotificationActivity.this,
