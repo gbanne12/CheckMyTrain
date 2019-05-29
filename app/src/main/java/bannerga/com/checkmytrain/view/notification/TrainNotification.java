@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import bannerga.com.checkmytrain.R;
-import bannerga.com.checkmytrain.view.activities.JourneyActivity;
+import bannerga.com.checkmytrain.view.activity.journey.JourneyActivity;
 
 public class TrainNotification {
 

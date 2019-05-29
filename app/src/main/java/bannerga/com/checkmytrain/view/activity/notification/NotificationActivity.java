@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.activities;
+package bannerga.com.checkmytrain.view.activity.notification;
 
 
 import android.os.AsyncTask;
@@ -21,7 +21,7 @@ import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.data.JourneyDAO;
 
-public class PendingJobsActivity extends AppCompatActivity {
+public class NotificationActivity extends AppCompatActivity {
 
     private TextView departureStationText;
     private TextView arrivalStationText;
@@ -39,14 +39,14 @@ public class PendingJobsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(PendingJobsActivity::onFloatingButtonClick);
+        fab.setOnClickListener(NotificationActivity::onFloatingButtonClick);
         new AsyncReadDatabaseTask().execute();
     }
 
     public class AsyncReadDatabaseTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            AppDatabase db = Room.databaseBuilder(PendingJobsActivity.this,
+            AppDatabase db = Room.databaseBuilder(NotificationActivity.this,
                     AppDatabase.class, "checkmytrain.db")
                     .fallbackToDestructiveMigration()
                     .build();
@@ -56,7 +56,7 @@ public class PendingJobsActivity extends AppCompatActivity {
             for (Journey journey : journeys) {
                 runOnUiThread(() -> {
                     LinearLayout container = findViewById(R.id.container);
-                    LinearLayout parent = new LinearLayout(PendingJobsActivity.this);
+                    LinearLayout parent = new LinearLayout(NotificationActivity.this);
                     View cardView = getLayoutInflater().inflate(R.layout.card, parent);
                     container.addView(cardView);
                     departureStationText = cardView.findViewById(R.id.departureStationText);

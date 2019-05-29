@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.controllers;
+package bannerga.com.checkmytrain.notification;
 
 
 import android.app.job.JobInfo;
@@ -17,20 +17,19 @@ import java.time.ZonedDateTime;
 import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.data.JourneyDAO;
-import bannerga.com.checkmytrain.notification.NotificationService;
 
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
-public class JourneyController {
+public class NotificationJob {
     private Context context;
     private int jobId;
 
-    public JourneyController(Context context) {
+    public NotificationJob(Context context) {
         this.context = context;
     }
     private JobScheduler scheduler;
 
-    public void scheduleJob(Context context, String departureStation, String arrivalStation, int hourOfDay, int minute) {
+    public void schedule(Context context, String departureStation, String arrivalStation, int hourOfDay, int minute) {
         ZonedDateTime now = ZonedDateTime.now();
         long nowInMillis = now.toInstant().toEpochMilli();
         ZonedDateTime notificationTime = ZonedDateTime.now().with(LocalTime.of(hourOfDay, minute));
@@ -47,11 +46,11 @@ public class JourneyController {
             offset = tomorrowInMillis - nowInMillis;
         }
 
-        scheduleJob(context, departureStation, arrivalStation, offset);
         new WriteJobAsyncTask(departureStation, arrivalStation, hourOfDay + ":" + minute).execute();
+        schedule(context, departureStation, arrivalStation, offset);
     }
 
-    public int scheduleJob(Context context, String departureStation, String arrivalStation, long offset) {
+    public int schedule(Context context, String departureStation, String arrivalStation, long offset) {
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString("departureStation", departureStation);
         bundle.putString("arrivalStation", arrivalStation);

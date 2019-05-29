@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.activities;
+package bannerga.com.checkmytrain.view.activity.journey;
 
 import android.content.Context;
 import android.os.AsyncTask;

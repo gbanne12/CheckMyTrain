@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.activities;
+package bannerga.com.checkmytrain.view.activity.journey;
 
 
 import android.content.Intent;
@@ -16,11 +16,14 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
 import bannerga.com.checkmytrain.R;
-import bannerga.com.checkmytrain.controllers.JourneyController;
+import bannerga.com.checkmytrain.notification.NotificationJob;
+import bannerga.com.checkmytrain.view.activity.notification.NotificationActivity;
+import bannerga.com.checkmytrain.view.autocompletetextview.StationTextWatcher;
+import bannerga.com.checkmytrain.view.fragment.TimePickerFragment;
 
 public class JourneyActivity extends AppCompatActivity {
 
-    private JourneyController controller = new JourneyController(this);
+    private NotificationJob controller = new NotificationJob(this);
     private AutoCompleteTextView arrivalStationText;
     private AutoCompleteTextView departureStationText;
     private TextInputEditText timeText;
@@ -92,7 +95,7 @@ public class JourneyActivity extends AppCompatActivity {
         if (!isMissingUserInput) {
             String departureStation = departureStationText.getText().toString();
             String arrivalStation = arrivalStationText.getText().toString();
-            controller.scheduleJob(this, departureStation, arrivalStation, hourOfDay, minute);
+            controller.schedule(this, departureStation, arrivalStation, hourOfDay, minute);
         } else {
             Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();
         }
@@ -103,7 +106,7 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     private void onPendingJobsClick(View v) {
-        Intent intent = new Intent(this, PendingJobsActivity.class);
+        Intent intent = new Intent(this, NotificationActivity.class);
         startActivity(intent);
     }
 }

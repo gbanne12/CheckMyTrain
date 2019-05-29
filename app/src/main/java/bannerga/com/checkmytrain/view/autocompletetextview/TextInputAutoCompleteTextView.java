@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.custom;
+package bannerga.com.checkmytrain.view.autocompletetextview;
 
 import android.content.Context;
 import android.util.AttributeSet;

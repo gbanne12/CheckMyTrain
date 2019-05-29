@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.activities;
+package bannerga.com.checkmytrain.view.fragment;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -8,6 +8,8 @@ import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
 import androidx.fragment.app.DialogFragment;
+
+import bannerga.com.checkmytrain.view.activity.journey.JourneyActivity;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 

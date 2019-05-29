@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import bannerga.com.checkmytrain.controllers.JourneyController;
 import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.StationDAO;
 import bannerga.com.checkmytrain.json.RailQuery;
@@ -74,8 +73,8 @@ public class NotificationService extends JobService {
             editor.putString("departure_station", departureStation);
             editor.apply();
 
-            JourneyController controller = new JourneyController(NotificationService.this);
-            controller.scheduleJob(NotificationService.this,
+            NotificationJob controller = new NotificationJob(NotificationService.this);
+            controller.schedule(NotificationService.this,
                     departureStation, arrivalStation, TimeUnit.DAYS.toMillis(1));
         }
     }
