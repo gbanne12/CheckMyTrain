@@ -38,11 +38,11 @@ public class Station {
         this.name = name;
     }
 
-    public String getCrs() {
+    public String getCode() {
         return crs;
     }
 
-    public void setCrs(String crs) {
+    public void setCode(String crs) {
         this.crs = crs;
     }
 }

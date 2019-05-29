@@ -29,6 +29,16 @@ public class NotificationJob {
     }
     private JobScheduler scheduler;
 
+    /***
+     *  Schedule the notification using the hour and minute at which to query the journey info.
+     *  If the time has passed for today the notification will be scheduled for the following day.
+     *
+     * @param context   the launching activity or service
+     * @param departureStation  the origin station for the journey
+     * @param arrivalStation  the destination station for the journey
+     * @param hourOfDay   the hour in 24 hour format
+     * @param minute    the minute of the hour
+     */
     public void schedule(Context context, String departureStation, String arrivalStation, int hourOfDay, int minute) {
         ZonedDateTime now = ZonedDateTime.now();
         long nowInMillis = now.toInstant().toEpochMilli();
@@ -50,6 +60,16 @@ public class NotificationJob {
         schedule(context, departureStation, arrivalStation, offset);
     }
 
+    /***
+     * Schedule the notification using the number of milliseconds
+     * until the journey information is to be queried
+     *
+     * @param context the launching activity or service
+     * @param departureStation  the origin station for the journey
+     * @param arrivalStation  the destination station for the journey
+     * @param offset the number of milliseconds to wait before attempting to the notification job
+     * @return the id of the scheduled job
+     */
     public int schedule(Context context, String departureStation, String arrivalStation, long offset) {
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString("departureStation", departureStation);

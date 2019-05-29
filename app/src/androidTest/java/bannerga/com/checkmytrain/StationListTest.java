@@ -37,7 +37,7 @@ public class StationListTest {
             String crs = stationDetails.get("crsCode").toString();
             Station station = new Station();
             station.setName(name);
-            station.setCrs(crs);
+            station.setCode(crs);
             dao.insertAll(station);
         }
     }
@@ -45,7 +45,7 @@ public class StationListTest {
     @Test
     public void canGetTheCrsCodeForAStation() throws IOException, JSONException {
         Station station = dao.findByName("Muirend");
-        Assert.assertEquals("MUI", station.getCrs());
+        Assert.assertEquals("MUI", station.getCode());
     }
 
 
