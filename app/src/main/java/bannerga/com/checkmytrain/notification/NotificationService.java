@@ -52,7 +52,7 @@ public class NotificationService extends JobService {
                 AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, "checkmytrain.db")
                         .fallbackToDestructiveMigration()
                         .build();
-                String departureStationCode = db.stationDao().findByName(departureStation).getCode();
+                String departureStationCode = db.stationDao().findByName(departureStation).getCrs();
                 RailQuery railQuery = new RailQuery();
                 JSONArray json = railQuery.getTimetableFor(departureStationCode);
                 trainInfo = railQuery.getNextDepartureFor(json, arrivalStation);

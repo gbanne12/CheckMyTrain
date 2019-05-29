@@ -46,7 +46,7 @@ public class PopulateStationTableAsyncTask extends AsyncTask<String, Void, Boole
                 String crs = stationDetails.get("crsCode").toString();
                 Station station = new Station();
                 station.setName(name);
-                station.setCode(crs);
+                station.setCrs(crs);
                 stationDAO.insertAll(station);
             }
         } catch (IOException | JSONException e) {
