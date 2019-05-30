@@ -14,8 +14,9 @@ public class NotificationJobTest {
     @Test
     public void scheduleJobWithHoursAndMinutes() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        NotificationJob job = new NotificationJob(context);
-        int id = job.schedule(context, "Muirend", "Glasgow Central", 1000);
+        NotificationJob job = new NotificationJob();
+        long offset = job.getOffsetInMillis(9, 39);
+        int id = job.scheduleJob(context, "Muirend", "Glasgow Central", offset);
         Assert.assertTrue(id > 0);
     }
 }

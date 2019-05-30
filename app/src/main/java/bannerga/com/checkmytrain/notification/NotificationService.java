@@ -17,6 +17,9 @@ import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.json.RailQuery;
 import bannerga.com.checkmytrain.view.notification.TrainNotification;
 
+/***
+ * Service that will query the journey details and issue a notification on the train's punctuality.
+ */
 public class NotificationService extends JobService {
 
     @Override
@@ -37,39 +40,42 @@ public class NotificationService extends JobService {
 
         private String departureStation;
         private String arrivalStation;
+        Context context = NotificationService.this;
+        private AppDatabase db;
 
         public NotificationAsyncTask(String departureStation, String arrivalStation) {
             this.departureStation = departureStation;
             this.arrivalStation = arrivalStation;
+            db = Room.databaseBuilder(context, AppDatabase.class, "checkmytrain.db")
+                    .fallbackToDestructiveMigration()
+                    .build();
         }
 
         //FIXME  returning empty hashmap for no reason
         @Override
         protected Map doInBackground(String... strings) {
-            Context context = NotificationService.this;
-            Map trainInfo = new HashMap();
-            try {
-                AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, "checkmytrain.db")
-                        .fallbackToDestructiveMigration()
-                        .build();
-                String departureStationCode = db.stationDao().findByName(departureStation).getCrs();
-                RailQuery railQuery = new RailQuery();
-                JSONArray json = railQuery.getTimetableFor(departureStationCode);
-                trainInfo = railQuery.getNextDepartureFor(json, arrivalStation);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            TrainNotification notification = new TrainNotification();
-            notification.issueNotification(context, trainInfo);
+            issueNotifcation();
             return new HashMap();
         }
 
         @Override
         protected void onPostExecute(Map result) {
-            NotificationJob job = new NotificationJob(NotificationService.this);
-            Context context = NotificationService.this;
-            job.schedule(context, departureStation, arrivalStation, TimeUnit.DAYS.toMillis(1));
+            NotificationJob job = new NotificationJob();
+            job.scheduleJob(context, departureStation, arrivalStation, TimeUnit.DAYS.toMillis(1));
+        }
+
+        private void issueNotifcation() {
+            Map trainInfo = new HashMap();
+            try {
+                String departureStationCode = db.stationDao().findByName(departureStation).getCrs();
+                RailQuery railQuery = new RailQuery();
+                JSONArray json = railQuery.getTimetableFor(departureStationCode);
+                trainInfo = railQuery.getNextDepartureFor(json, arrivalStation);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            TrainNotification notification = new TrainNotification();
+            notification.issueNotification(context, trainInfo);
         }
     }
 }
