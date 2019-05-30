@@ -24,6 +24,9 @@ public class Journey {
     @ColumnInfo(name = "time")
     private String time;
 
+    @ColumnInfo(name = "guid")
+    private String guid;
+
     @NonNull
     public int getId() {
         return id;
@@ -55,5 +58,13 @@ public class Journey {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 }
