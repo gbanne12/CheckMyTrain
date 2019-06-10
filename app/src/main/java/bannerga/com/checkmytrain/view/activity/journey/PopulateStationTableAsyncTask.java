@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference;
 import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Station;
 import bannerga.com.checkmytrain.data.StationDAO;
-import bannerga.com.checkmytrain.json.RailQuery;
+import bannerga.com.checkmytrain.json.Timetable;
 
 public class PopulateStationTableAsyncTask extends AsyncTask<String, Void, Boolean> {
 
@@ -35,7 +35,7 @@ public class PopulateStationTableAsyncTask extends AsyncTask<String, Void, Boole
         StationDAO stationDAO = db.stationDao();
 
         try {
-            RailQuery query = new RailQuery();
+            Timetable query = new Timetable();
             JSONArray stationArray = query.getStations();
             if (stationDAO.getAll().size() > 1) {
                 stationDAO.wipeTable();

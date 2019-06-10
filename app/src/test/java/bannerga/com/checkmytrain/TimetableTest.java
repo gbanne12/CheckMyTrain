@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
-import bannerga.com.checkmytrain.json.RailQuery;
+import bannerga.com.checkmytrain.json.Timetable;
 
-public class ItineraryTest {
+public class TimetableTest {
 
     private static JSONArray dummyJson;
 
@@ -41,30 +41,30 @@ public class ItineraryTest {
 
     @Test
     public void getHuxleyResponseTest() throws Exception {
-        RailQuery railQuery = new RailQuery();
-        JSONArray response = railQuery.getTimetableFor("MUI");
+        Timetable timetable = new Timetable();
+        JSONArray response = timetable.getAllJourneys("MUI");
         Assert.assertNotNull(response);
     }
 
     @Test
     public void getParseNextTrainTime() throws Exception {
-        RailQuery railQuery = new RailQuery();
-        Map info = railQuery.getNextDepartureFor(dummyJson, "Glasgow Central");
+        Timetable timetable = new Timetable();
+        Map info = timetable.getNextTrain(dummyJson, "Glasgow Central");
         Assert.assertEquals("15:11", info.get("time").toString());
     }
 
     @Test
     public void canParseDelayedInformation() throws Exception {
-        RailQuery railQuery = new RailQuery();
-        Map info = railQuery.getNextDepartureFor(dummyJson, "Glasgow Central");
+        Timetable timetable = new Timetable();
+        Map info = timetable.getNextTrain(dummyJson, "Glasgow Central");
         String isDelayed = info.get("delayed").toString();
         Assert.assertTrue(isDelayed.equals("On time") || isDelayed.equals("Delayed"));
     }
 
     @Test
     public void canParseCancelledInformation() throws Exception {
-        RailQuery railQuery = new RailQuery();
-        Map info = railQuery.getNextDepartureFor(dummyJson, "Glasgow Central");
+        Timetable timetable = new Timetable();
+        Map info = timetable.getNextTrain(dummyJson, "Glasgow Central");
         String cancelled = info.get("cancelled").toString();
         Assert.assertTrue(cancelled.equals("true") || cancelled.equals("false"));
     }

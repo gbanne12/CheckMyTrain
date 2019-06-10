@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import bannerga.com.checkmytrain.data.AppDatabase;
-import bannerga.com.checkmytrain.json.RailQuery;
+import bannerga.com.checkmytrain.json.Timetable;
 import bannerga.com.checkmytrain.view.notification.TrainNotification;
 
 /***
@@ -68,9 +68,9 @@ public class NotificationService extends JobService {
             Map trainInfo = new HashMap();
             try {
                 String departureStationCode = db.stationDao().findByName(departureStation).getCrs();
-                RailQuery railQuery = new RailQuery();
-                JSONArray json = railQuery.getTimetableFor(departureStationCode);
-                trainInfo = railQuery.getNextDepartureFor(json, arrivalStation);
+                Timetable timetable = new Timetable();
+                JSONArray journeys = timetable.getAllJourneys(departureStationCode);
+                trainInfo = timetable.getNextTrain(journeys, arrivalStation);
             } catch (Exception e) {
                 e.printStackTrace();
             }
