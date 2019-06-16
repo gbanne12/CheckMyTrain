@@ -17,7 +17,7 @@ import static android.content.Context.JOB_SCHEDULER_SERVICE;
  * Job that will schedule {@link NotificationService} to query the journey information
  */
 public class NotificationJob {
-    private int jobId = 22;
+
     private JobScheduler jobScheduler;
 
     /***
@@ -30,7 +30,7 @@ public class NotificationJob {
      * @param offset the number of milliseconds to wait before attempting to the notification job
      * @return the id of the scheduled job
      */
-    public int scheduleJob(Context context, String departureStation, String arrivalStation, long offset) {
+    public int scheduleJob(Context context, String jobId, String departureStation, String arrivalStation, long offset) {
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString("departureStation", departureStation);
         bundle.putString("arrivalStation", arrivalStation);
@@ -38,7 +38,7 @@ public class NotificationJob {
         jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
         ComponentName notificationService = new ComponentName(context.getPackageName(), NotificationService.class.getName());
 
-        JobInfo.Builder builder = new JobInfo.Builder(jobId, notificationService);
+        JobInfo.Builder builder = new JobInfo.Builder(Integer.parseInt(jobId), notificationService);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
                 .setMinimumLatency(offset)
@@ -48,11 +48,14 @@ public class NotificationJob {
         return notificationJob.getId();
     }
 
-    public void cancelJob(Context context) {
+    public void cancelJob(Context context, String jobId) {
         if (jobScheduler != null) {
             jobScheduler.cancelAll();
             jobScheduler = null;
             Toast.makeText(context, "Jobs cancelled", Toast.LENGTH_SHORT).show();
+        } else {
+            jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
+            jobScheduler.cancel(jobId);
         }
     }
 
