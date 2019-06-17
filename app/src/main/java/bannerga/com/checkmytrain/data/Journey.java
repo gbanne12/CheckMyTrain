@@ -21,11 +21,14 @@ public class Journey {
     @ColumnInfo(name = "destination")
     private String destination;
 
-    @ColumnInfo(name = "time")
-    private String time;
+    @ColumnInfo(name = "hour")
+    private int hour;
 
-    @ColumnInfo(name = "guid")
-    private String guid;
+    @ColumnInfo(name = "minute")
+    private int minute;
+
+    @ColumnInfo(name = "jobId")
+    private int jobId;
 
     @NonNull
     public int getId() {
@@ -52,19 +55,27 @@ public class Journey {
         this.destination = destination;
     }
 
-    public String getTime() {
-        return time;
+    public int getHour() {
+        return hour;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setHour(int hour) {
+        this.hour = hour;
     }
 
-    public String getGuid() {
-        return guid;
+    public int getMinute() {
+        return minute;
     }
 
-    public void setGuid(String guid) {
-        this.guid = guid;
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public int getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(int jobId) {
+        this.jobId = jobId;
     }
 }

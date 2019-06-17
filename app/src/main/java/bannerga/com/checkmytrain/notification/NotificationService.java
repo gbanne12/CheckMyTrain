@@ -11,7 +11,6 @@ import org.json.JSONArray;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.json.Timetable;
@@ -22,11 +21,19 @@ import bannerga.com.checkmytrain.view.notification.TrainNotification;
  */
 public class NotificationService extends JobService {
 
+
+    private String departureStation;
+    private String arrivalStation;
+    private int hour;
+    private int minute;
+
     @Override
     public boolean onStartJob(JobParameters params) {
-        String departureStation = params.getExtras().getString("departureStation");
-        String arrivalStation = params.getExtras().getString("arrivalStation");
-        new NotificationAsyncTask(departureStation, arrivalStation).execute();
+        departureStation = params.getExtras().getString("departureStation");
+        arrivalStation = params.getExtras().getString("arrivalStation");
+        hour = params.getExtras().getInt("hour");
+        minute = params.getExtras().getInt("minute");
+        new NotificationAsyncTask().execute();
         return false;
     }
 
@@ -38,14 +45,10 @@ public class NotificationService extends JobService {
 
     public class NotificationAsyncTask extends AsyncTask<String, Void, Map> {
 
-        private String departureStation;
-        private String arrivalStation;
-        Context context = NotificationService.this;
+        private Context context = NotificationService.this;
         private AppDatabase db;
 
-        public NotificationAsyncTask(String departureStation, String arrivalStation) {
-            this.departureStation = departureStation;
-            this.arrivalStation = arrivalStation;
+        public NotificationAsyncTask() {
             db = Room.databaseBuilder(context, AppDatabase.class, "checkmytrain.db")
                     .fallbackToDestructiveMigration()
                     .build();
@@ -60,8 +63,8 @@ public class NotificationService extends JobService {
 
         @Override
         protected void onPostExecute(Map result) {
-            NotificationJob job = new NotificationJob();
-            job.scheduleJob(context, departureStation, arrivalStation, TimeUnit.DAYS.toMillis(1));
+            NotificationJob job = new NotificationJob(context);
+            job.scheduleJob(departureStation, arrivalStation, hour, minute);
         }
 
         private void issueNotifcation() {

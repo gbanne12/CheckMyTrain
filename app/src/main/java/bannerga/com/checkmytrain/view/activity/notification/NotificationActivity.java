@@ -64,7 +64,8 @@ public class NotificationActivity extends AppCompatActivity {
                     arrivalStationText = cardView.findViewById(R.id.arrivalStationText);
                     arrivalStationText.setText(journey.getDestination());
                     timeText = cardView.findViewById(R.id.timeText);
-                    timeText.setText(journey.getTime());
+                    String time = journey.getHour() + " : " + journey.getMinute();
+                    timeText.setText(time);
                 });
             }
             return "pass";

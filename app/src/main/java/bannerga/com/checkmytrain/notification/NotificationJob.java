@@ -5,11 +5,20 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.PersistableBundle;
 import android.widget.Toast;
 
+import androidx.room.Room;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.util.Date;
+
+import bannerga.com.checkmytrain.data.AppDatabase;
+import bannerga.com.checkmytrain.data.Journey;
+import bannerga.com.checkmytrain.data.JourneyDAO;
 
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
@@ -18,37 +27,45 @@ import static android.content.Context.JOB_SCHEDULER_SERVICE;
  */
 public class NotificationJob {
 
+    private Context context;
     private JobScheduler jobScheduler;
+
+    public NotificationJob(Context context) {
+        this.context = context;
+    }
 
     /***
      * Schedule the notification using the number of milliseconds
      * until the journey information is to be queried
-     *
-     * @param context the launching activity or service
-     * @param departureStation  the origin station for the journey
-     * @param arrivalStation  the destination station for the journey
-     * @param offset the number of milliseconds to wait before attempting to the notification job
      * @return the id of the scheduled job
      */
-    public int scheduleJob(Context context, String jobId, String departureStation, String arrivalStation, long offset) {
+    public void scheduleJob(String departureStation, String arrivalStation, int hour, int minute) {
+        long offset = getOffsetInMillis(hour, minute);
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString("departureStation", departureStation);
         bundle.putString("arrivalStation", arrivalStation);
+        bundle.putInt("hour", hour);
+        bundle.putInt("minute", minute);
 
-        jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-        ComponentName notificationService = new ComponentName(context.getPackageName(), NotificationService.class.getName());
+        String timestamp = new SimpleDateFormat("MMddHHmmss").format(new Date());
+        int jobId = Integer.parseInt(timestamp);
 
-        JobInfo.Builder builder = new JobInfo.Builder(Integer.parseInt(jobId), notificationService);
+        String serviceName = NotificationService.class.getName();
+        ComponentName service = new ComponentName(context.getPackageName(), serviceName);
+
+        JobInfo.Builder builder = new JobInfo.Builder(jobId, service);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
                 .setMinimumLatency(offset)
                 .setExtras(bundle);
         JobInfo notificationJob = builder.build();
+        jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
         jobScheduler.schedule(notificationJob);
-        return notificationJob.getId();
+
+        new SaveJourneyAsyncTask(jobId, departureStation, arrivalStation, hour, minute).execute();
     }
 
-    public void cancelJob(Context context, String jobId) {
+    public void cancelJob(int jobId) {
         if (jobScheduler != null) {
             jobScheduler.cancelAll();
             jobScheduler = null;
@@ -76,5 +93,45 @@ public class NotificationJob {
             offset = tomorrowInMillis - nowInMillis;
         }
         return offset;
+    }
+
+    private class SaveJourneyAsyncTask extends AsyncTask<String, Void, String> {
+
+        private String departureStation;
+        private String arrivalStation;
+        private int hour;
+        private int minute;
+        private int jobId;
+        private AppDatabase db;
+
+        public SaveJourneyAsyncTask(
+                int jobId, String departureStation, String arrivalStation, int hour, int minute) {
+            this.departureStation = departureStation;
+            this.arrivalStation = arrivalStation;
+            this.hour = hour;
+            this.minute = minute;
+            this.jobId = jobId;
+            db = Room.databaseBuilder(context, AppDatabase.class, "checkmytrain.db")
+                    .fallbackToDestructiveMigration()
+                    .build();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            Journey journey = new Journey();
+            journey.setJobId(jobId);
+            journey.setOrigin(departureStation);
+            journey.setDestination(arrivalStation);
+            journey.setHour(hour);
+            journey.setMinute(minute);
+            JourneyDAO dao = db.dao();
+            dao.insertAll(journey);
+            return "pass";
+        }
+
+        @Override
+        protected void onPostExecute(String adapter) {
+
+        }
     }
 }
