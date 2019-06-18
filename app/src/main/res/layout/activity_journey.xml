@@ -8,88 +8,99 @@
     tools:context=".view.activity.journey.JourneyActivity">
 
     <LinearLayout
+        android:id="@+id/journey_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/AppTheme.TextInputLayout"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/journey_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_height"
+            android:background="@color/colorPrimaryDark"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:title="@string/title_activity_pending_jobs">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/journey_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_bar_height" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_departure_station">
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-            <bannerga.com.checkmytrain.view.autocompletetextview.TextInputAutoCompleteTextView
-                android:id="@+id/departure_station_input"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AppTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/hint_departure_station">
 
-        <!-- <ListView
-             android:id="@+id/station_results_list"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:visibility="visible"></ListView>-->
+                <bannerga.com.checkmytrain.view.autocompletetextview.TextInputAutoCompleteTextView
+                    android:id="@+id/departure_station_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/text_margin" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/AppTheme.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_arrival_station">
-
-            <bannerga.com.checkmytrain.view.autocompletetextview.TextInputAutoCompleteTextView
-                android:id="@+id/arrival_station_input"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AppTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/hint_arrival_station">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/AppTheme.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_time"
-            app:errorEnabled="true">
+                <bannerga.com.checkmytrain.view.autocompletetextview.TextInputAutoCompleteTextView
+                    android:id="@+id/arrival_station_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/text_margin" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/time_input"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AppTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                android:inputType="time" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/hint_time"
+                app:errorEnabled="true">
 
-        <Button
-            android:id="@+id/button_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="@string/button_label_submit"
-            android:textColor="@color/colorPrimaryDark" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/time_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:inputType="time" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/button_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:paddingStart="@dimen/fab_margin"
-            android:paddingEnd="@dimen/fab_margin"
-            android:text="@string/button_label_cancel"
-            android:textColor="@color/colorPrimaryDark" />
+            <Button
+                android:id="@+id/button_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/button_label_submit"
+                android:textColor="@color/colorPrimary" />
 
-        <Button
-            android:id="@+id/button_pending_jobs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="@string/button_label_pending"
-            android:textColor="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/button_pending_jobs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:background="@color/colorPrimary"
+                android:text="@string/button_label_pending"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="@id/journey_container" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -12,9 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.List;
 
 import bannerga.com.checkmytrain.R;
@@ -29,19 +26,12 @@ public class CardActivity extends AppCompatActivity {
     private TextView timeText;
     private ImageView deleteIcon;
 
-    private static void onFloatingButtonClick(View view) {
-        Snackbar.make(view, "Replace", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(CardActivity::onFloatingButtonClick);
         new DisplaySavedJourneysAsyncTask().execute();
     }
 

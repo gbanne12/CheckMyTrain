@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
 import com.facebook.stetho.Stetho;
@@ -28,18 +29,17 @@ public class JourneyActivity extends AppCompatActivity {
     private TextInputEditText timeText;
     private int hourOfDay;
     private int minute;
-    private int jobId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Stetho.initializeWithDefaults(this);
         setContentView(R.layout.activity_journey);
+        Toolbar toolbar = findViewById(R.id.journey_toolbar);
+        setSupportActionBar(toolbar);
 
         Button submitButton = findViewById(R.id.button_submit);
         submitButton.setOnClickListener(this::onSubmitClick);
-        Button cancelButton = findViewById(R.id.button_cancel);
-        cancelButton.setOnClickListener(this::onCancelClick);
         Button pendingJobsButton = findViewById(R.id.button_pending_jobs);
         pendingJobsButton.setOnClickListener(this::onPendingJobsClick);
 
@@ -81,10 +81,6 @@ public class JourneyActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void onCancelClick(View v) {
-        // notificationJob.cancelJob(this, jobId);
     }
 
     private void onPendingJobsClick(View v) {
