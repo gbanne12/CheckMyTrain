@@ -8,6 +8,7 @@
     <string name="button_label_cancel">Cancel</string>
     <string name="button_label_pending">Saved journeys</string>
     <string name="title_activity_pending_jobs">Saved journeys</string>
+    <string name="title_activity_journey">Add a journey</string>
 
 
 
