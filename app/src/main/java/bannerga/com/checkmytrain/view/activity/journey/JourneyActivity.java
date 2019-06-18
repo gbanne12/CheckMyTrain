@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import bannerga.com.checkmytrain.R;
 import bannerga.com.checkmytrain.notification.NotificationJob;
-import bannerga.com.checkmytrain.view.activity.notification.NotificationActivity;
+import bannerga.com.checkmytrain.view.activity.cards.CardActivity;
 import bannerga.com.checkmytrain.view.autocompletetextview.StationTextWatcher;
 import bannerga.com.checkmytrain.view.fragment.TimePickerFragment;
 
@@ -88,7 +88,7 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     private void onPendingJobsClick(View v) {
-        Intent intent = new Intent(this, NotificationActivity.class);
+        Intent intent = new Intent(this, CardActivity.class);
         startActivity(intent);
     }
 

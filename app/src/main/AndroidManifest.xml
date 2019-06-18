@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.activity.notification.NotificationActivity"
+            android:name=".view.activity.cards.CardActivity"
             android:label="@string/title_activity_pending_jobs"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
