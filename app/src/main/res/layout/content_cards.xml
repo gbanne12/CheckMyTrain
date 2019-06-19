@@ -5,16 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="activities.PendingJobsActivity"
-    tools:showIn="@layout/activity_pending_jobs">
+    tools:context=".view.activity.cards.CardActivity"
+    tools:showIn="@layout/activity_cards">
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    </LinearLayout>
+        android:orientation="vertical"></LinearLayout>
 
 
 </androidx.core.widget.NestedScrollView>

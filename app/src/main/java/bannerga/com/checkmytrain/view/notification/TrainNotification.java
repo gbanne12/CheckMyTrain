@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.notification;
+package bannerga.com.checkmytrain.view.notification;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import bannerga.com.checkmytrain.R;
-import bannerga.com.checkmytrain.activities.MainActivity;
+import bannerga.com.checkmytrain.view.activity.journey.JourneyActivity;
 
 public class TrainNotification {
 
@@ -48,7 +48,7 @@ public class TrainNotification {
     }
 
     private PendingIntent getPendingIntent(Context context) {
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, JourneyActivity.class);
         return PendingIntent.getActivity(context,
                 getRandomDigit(),
                 notificationIntent,

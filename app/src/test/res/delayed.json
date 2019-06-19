@@ -1,0 +1,455 @@
+{
+  "trainServices": [
+    {
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR630900",
+      "sta": "08:20",
+      "eta": "08:35",
+      "std": "08:20",
+      "etd": "08:35",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": "This train has been delayed by a fault with the signalling system earlier today",
+      "serviceID": "jW0hAa9WNtzubkndtamhSQ==",
+      "serviceIdPercentEncoded": "jW0hAa9WNtzubkndtamhSQ%3d%3d",
+      "serviceIdGuid": "01216d8d-56af-dc36-ee6e-49ddb5a9a149",
+      "serviceIdUrlSafe": "jW0hAa9WNtzubkndtamhSQ",
+      "adhocAlerts": null
+    },
+    {
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR662000",
+      "sta": "08:38",
+      "eta": "08:45",
+      "std": "08:38",
+      "etd": "08:46",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "bE8Q7J4ykvrgKdDhnMngjA==",
+      "serviceIdPercentEncoded": "bE8Q7J4ykvrgKdDhnMngjA%3d%3d",
+      "serviceIdGuid": "ec104f6c-329e-fa92-e029-d0e19cc9e08c",
+      "serviceIdUrlSafe": "bE8Q7J4ykvrgKdDhnMngjA",
+      "adhocAlerts": null
+    },
+    {
+      "origin": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR966500",
+      "sta": "08:41",
+      "eta": "On time",
+      "std": "08:41",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "fR2zqnM5Ygnc3l9aE5aB+A==",
+      "serviceIdPercentEncoded": "fR2zqnM5Ygnc3l9aE5aB%2bA%3d%3d",
+      "serviceIdGuid": "aab31d7d-3973-0962-dcde-5f5a139681f8",
+      "serviceIdUrlSafe": "fR2zqnM5Ygnc3l9aE5aB-A",
+      "adhocAlerts": null
+    },
+    {
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR967300",
+      "sta": "08:56",
+      "eta": "On time",
+      "std": "08:56",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "DUvXmktOqyGUAkWQx5cBzA==",
+      "serviceIdPercentEncoded": "DUvXmktOqyGUAkWQx5cBzA%3d%3d",
+      "serviceIdGuid": "9ad74b0d-4e4b-21ab-9402-4590c79701cc",
+      "serviceIdUrlSafe": "DUvXmktOqyGUAkWQx5cBzA",
+      "adhocAlerts": null
+    },
+    {
+      "origin": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR662400",
+      "sta": "08:57",
+      "eta": "Delayed",
+      "std": "08:57",
+      "etd": "Delayed",
+      "platform": "2",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "oMsYkVipy2w2RVZ3qll8ww==",
+      "serviceIdPercentEncoded": "oMsYkVipy2w2RVZ3qll8ww%3d%3d",
+      "serviceIdGuid": "9118cba0-a958-6ccb-3645-5677aa597cc3",
+      "serviceIdUrlSafe": "oMsYkVipy2w2RVZ3qll8ww",
+      "adhocAlerts": null
+    },
+    {
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR662500",
+      "sta": "09:18",
+      "eta": "On time",
+      "std": "09:18",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "b59jHYW4sY2zUJ28dsMYUA==",
+      "serviceIdPercentEncoded": "b59jHYW4sY2zUJ28dsMYUA%3d%3d",
+      "serviceIdGuid": "1d639f6f-b885-8db1-b350-9dbc76c31850",
+      "serviceIdUrlSafe": "b59jHYW4sY2zUJ28dsMYUA",
+      "adhocAlerts": null
+    },
+    {
+      "origin": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR662900",
+      "sta": "09:20",
+      "eta": "On time",
+      "std": "09:20",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "3Zd5U9tJDVvohpnkkTlqqw==",
+      "serviceIdPercentEncoded": "3Zd5U9tJDVvohpnkkTlqqw%3d%3d",
+      "serviceIdGuid": "537997dd-49db-5b0d-e886-99e491396aab",
+      "serviceIdUrlSafe": "3Zd5U9tJDVvohpnkkTlqqw",
+      "adhocAlerts": null
+    },
+    {
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR969200",
+      "sta": "09:41",
+      "eta": "On time",
+      "std": "09:41",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "B1KexFwqV5pdbvQwruz8UA==",
+      "serviceIdPercentEncoded": "B1KexFwqV5pdbvQwruz8UA%3d%3d",
+      "serviceIdGuid": "c49e5207-2a5c-9a57-5d6e-f430aeecfc50",
+      "serviceIdUrlSafe": "B1KexFwqV5pdbvQwruz8UA",
+      "adhocAlerts": null
+    },
+    {
+      "origin": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR969500",
+      "sta": "09:51",
+      "eta": "On time",
+      "std": "09:51",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "Ba2huQdjDBvnCgrD5CNTqA==",
+      "serviceIdPercentEncoded": "Ba2huQdjDBvnCgrD5CNTqA%3d%3d",
+      "serviceIdGuid": "b9a1ad05-6307-1b0c-e70a-0ac3e42353a8",
+      "serviceIdUrlSafe": "Ba2huQdjDBvnCgrD5CNTqA",
+      "adhocAlerts": null
+    },
+    {
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR663300",
+      "sta": "10:11",
+      "eta": "On time",
+      "std": "10:11",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "wwpJnzqA8wQTBHlhSm1m4g==",
+      "serviceIdPercentEncoded": "wwpJnzqA8wQTBHlhSm1m4g%3d%3d",
+      "serviceIdGuid": "9f490ac3-803a-04f3-1304-79614a6d66e2",
+      "serviceIdUrlSafe": "wwpJnzqA8wQTBHlhSm1m4g",
+      "adhocAlerts": null
+    }
+  ],
+  "busServices": null,
+  "ferryServices": null,
+  "generatedAt": "2019-06-11T07:32:49.3286154+00:00",
+  "locationName": "Muirend",
+  "crs": "MUI",
+  "filterLocationName": null,
+  "filtercrs": null,
+  "filterType": 0,
+  "nrccMessages": null,
+  "platformAvailable": true,
+  "areServicesAvailable": true
+}
