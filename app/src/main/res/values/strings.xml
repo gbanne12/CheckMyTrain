@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Check My Train</string>
     <string name="action_settings">Settings</string>
+    <string name="action_show_cards">Saved journeys</string>
     <string name="hint_departure_station">Departure station</string>
     <string name="hint_arrival_station">Arrival station</string>
     <string name="hint_time">Time</string>
@@ -9,7 +10,6 @@
     <string name="button_label_pending">Saved journeys</string>
     <string name="title_activity_pending_jobs">Saved journeys</string>
     <string name="title_activity_journey">Add a journey</string>
-
-
-
+    <string name="message_loading">Loading...</string>
+    <string name="message_empty">No journeys have been created</string>
 </resources>

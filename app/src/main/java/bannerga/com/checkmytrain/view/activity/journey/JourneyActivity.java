@@ -3,6 +3,8 @@ package bannerga.com.checkmytrain.view.activity.journey;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -40,8 +42,6 @@ public class JourneyActivity extends AppCompatActivity {
 
         Button submitButton = findViewById(R.id.button_submit);
         submitButton.setOnClickListener(this::onSubmitClick);
-        Button pendingJobsButton = findViewById(R.id.button_pending_jobs);
-        pendingJobsButton.setOnClickListener(this::onPendingJobsClick);
 
         departureStationText = findViewById(R.id.departure_station_input);
         departureStationText.addTextChangedListener(new StationTextWatcher(departureStationText, this));
@@ -50,6 +50,26 @@ public class JourneyActivity extends AppCompatActivity {
         timeText = findViewById(R.id.time_input);
         timeText.setOnClickListener(this::showTimePickerDialog);
         new PopulateStationTableAsyncTask(this).execute();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_pending_jobs, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_show_cards:
+                Intent intent = new Intent(this, CardActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void showTimePickerDialog(View v) {
@@ -78,14 +98,9 @@ public class JourneyActivity extends AppCompatActivity {
                     arrivalStationText.getText().toString(),
                     hourOfDay,
                     minute);
+            Toast.makeText(this, "Journey added", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();
         }
     }
-
-    private void onPendingJobsClick(View v) {
-        Intent intent = new Intent(this, CardActivity.class);
-        startActivity(intent);
-    }
-
 }

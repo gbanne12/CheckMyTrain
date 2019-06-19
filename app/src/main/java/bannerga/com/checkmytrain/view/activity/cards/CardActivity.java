@@ -21,6 +21,7 @@ import bannerga.com.checkmytrain.data.JourneyDAO;
 
 public class CardActivity extends AppCompatActivity {
 
+    private TextView noJourneysMessage;
     private TextView departureStationText;
     private TextView arrivalStationText;
     private TextView timeText;
@@ -32,6 +33,8 @@ public class CardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cards);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        noJourneysMessage = findViewById(R.id.no_journeys_message);
+        noJourneysMessage.setText(R.string.message_loading);
         new DisplaySavedJourneysAsyncTask().execute();
     }
 
@@ -60,11 +63,23 @@ public class CardActivity extends AppCompatActivity {
                     arrivalStationText = cardView.findViewById(R.id.arrivalStationText);
                     arrivalStationText.setText(journey.getDestination());
                     timeText = cardView.findViewById(R.id.timeText);
-                    String time = journey.getHour() + " : " + journey.getMinute();
+                    int hour = journey.getHour();
+                    int minute = journey.getMinute();
+                    String time;
+                    if (minute < 10) {
+                        time = hour + ":0" + minute;
+                    } else {
+                        time = hour + ":" + minute;
+                    }
                     timeText.setText(time);
                     deleteIcon = cardView.findViewById(R.id.remove);
                     deleteIcon.setOnClickListener(new OnRemoveClickListener(CardActivity.this, journey, cardView));
                 });
+            }
+            if (journeys.size() == 0) {
+                noJourneysMessage.setText(R.string.message_empty);
+            } else {
+                noJourneysMessage.setVisibility(View.GONE);
             }
         }
     }

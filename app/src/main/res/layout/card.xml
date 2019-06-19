@@ -15,7 +15,9 @@
             android:id="@+id/departureStationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin" />
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin" />
 
         <TextView
             android:id="@+id/arrivalStationText"
@@ -23,15 +25,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/departureStationText"
             android:layout_alignStart="@id/departureStationText"
-            android:layout_margin="@dimen/text_margin" />
+            android:layout_marginBottom="@dimen/text_margin" />
 
         <TextView
             android:id="@+id/timeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/arrivalStationText"
-            android:layout_alignStart="@id/arrivalStationText"
-            android:layout_margin="@dimen/text_margin" />
+            android:layout_alignStart="@id/departureStationText"
+            android:layout_marginBottom="@dimen/text_margin" />
 
         <ImageView
             android:id="@+id/remove"
@@ -39,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_action_remove"
+            android:src="@drawable/baseline_delete_forever_24"
             android:tint="@color/colorPrimaryDark" />
 
     </RelativeLayout>
