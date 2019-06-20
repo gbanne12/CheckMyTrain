@@ -25,25 +25,25 @@ public class Timetable {
         return (JSONArray) json.get("trainServices");
     }
 
-    public JSONArray getStations() throws IOException, JSONException {
-        URL stationsEndpoint = new URL(BASE_URL + STATION_ENDPOINT);
-        return new JSONArray(getResponseAsString(stationsEndpoint).toString());
-    }
-
-    public Map getNextTrain(JSONArray timetable, String destination) throws Exception {
+    public Map getNextJourney(JSONArray timetable, String destination) throws Exception {
         Map map = new HashMap();
         for (int i = 0; i < timetable.length(); i++) {
             JSONObject currentJourney = ((JSONObject) timetable.get(i));
-                boolean isDestination =
-                        currentJourney.get("destination").toString().contains(destination);
-                if (isDestination) {
-                    map.put("cancelled", currentJourney.getBoolean("isCancelled"));
-                    map.put("time", currentJourney.get("std").toString());
-                    map.put("delayed", currentJourney.get("etd").toString());
-                    break;
-                }
+            boolean isDestination =
+                    currentJourney.get("destination").toString().contains(destination);
+            if (isDestination) {
+                map.put("cancelled", currentJourney.getBoolean("isCancelled"));
+                map.put("time", currentJourney.get("std").toString());
+                map.put("delayed", currentJourney.get("etd").toString());
+                break;
             }
+        }
         return map;
+    }
+
+    public JSONArray getStations() throws IOException, JSONException {
+        URL stationsEndpoint = new URL(BASE_URL + STATION_ENDPOINT);
+        return new JSONArray(getResponseAsString(stationsEndpoint).toString());
     }
 
     private StringBuilder getResponseAsString(URL url) throws IOException {

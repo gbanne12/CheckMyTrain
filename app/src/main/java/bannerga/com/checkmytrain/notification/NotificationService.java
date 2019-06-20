@@ -73,7 +73,7 @@ public class NotificationService extends JobService {
                 String departureStationCode = db.stationDao().findByName(departureStation).getCrs();
                 Timetable timetable = new Timetable();
                 JSONArray journeys = timetable.getAllJourneys(departureStationCode);
-                trainInfo = timetable.getNextTrain(journeys, arrivalStation);
+                trainInfo = timetable.getNextJourney(journeys, arrivalStation);
             } catch (Exception e) {
                 e.printStackTrace();
             }
