@@ -34,32 +34,43 @@ public class Timetable {
         Map map = new HashMap();
         for (int i = 0; i < timetable.length(); i++) {
             JSONObject currentJourney = (JSONObject) timetable.get(i);
-                boolean isDestination =
-                        currentJourney.get("destination").toString().contains(destination);
+            boolean isDestination =
+                    currentJourney.get("destination").toString().contains(destination);
             if (isDestination) {
                 map.put("cancelled", currentJourney.getBoolean("isCancelled"));
                 map.put("time", currentJourney.get("std").toString());
                 map.put("delayed", currentJourney.get("etd").toString());
                 break;
+
+
             } else {
+                System.out.println("Searching route " + i + " of " + timetable.length());
                 JSONArray subsequentCallingPoints =
                         currentJourney.getJSONArray("subsequentCallingPoints");
                 for (int count = 0; count < subsequentCallingPoints.length(); count++) {
+
                     JSONObject currentCallingPoint = (JSONObject) subsequentCallingPoints.get(count);
                     JSONArray callingPoints = currentCallingPoint.getJSONArray("callingPoint");
-                    JSONObject firstCallingPoint = ((JSONObject) callingPoints.get(i));
-                    boolean isCallingPoint =
-                            firstCallingPoint.get("locationName").toString().contains(destination);
 
-                    if (isCallingPoint) {
-                        map.put("cancelled", firstCallingPoint.getBoolean("isCancelled"));
-                        map.put("time", firstCallingPoint.get("st").toString());
-                        map.put("delayed", firstCallingPoint.get("et").toString());
-                        return map;
+
+                    for (int iterator = 0; iterator < callingPoints.length(); iterator++) {
+                        System.out.println("Searching calling point " + count + " of " + subsequentCallingPoints.length());
+                        JSONObject callingPoint = ((JSONObject) callingPoints.get(iterator));
+                        System.out.println("Found calling point: " + callingPoint.get("locationName").toString());
+                        boolean isCallingPoint =
+                                callingPoint.get("locationName").toString().contains(destination);
+
+                        if (isCallingPoint) {
+                            map.put("cancelled", callingPoint.getBoolean("isCancelled"));
+                            map.put("time", callingPoint.get("st").toString());
+                            map.put("delayed", callingPoint.get("et").toString());
+                            return map;
+                        }
+
                     }
                 }
             }
-            }
+        }
         return map;
     }
 
