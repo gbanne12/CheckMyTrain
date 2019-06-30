@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.Map;
+
+import bannerga.com.checkmytrain.notification.JourneyStatus;
 
 public class Timetable {
 
@@ -30,20 +30,48 @@ public class Timetable {
         return new JSONArray(getResponseAsString(stationsEndpoint).toString());
     }
 
-    public Map getNextTrain(JSONArray timetable, String destination) throws Exception {
-        Map map = new HashMap();
-        for (int i = 0; i < timetable.length(); i++) {
-            JSONObject currentJourney = ((JSONObject) timetable.get(i));
-                boolean isDestination =
-                        currentJourney.get("destination").toString().contains(destination);
-                if (isDestination) {
-                    map.put("cancelled", currentJourney.getBoolean("isCancelled"));
-                    map.put("time", currentJourney.get("std").toString());
-                    map.put("delayed", currentJourney.get("etd").toString());
+    public JourneyStatus getNextTrain(JSONArray timetable, String destination) throws Exception {
+        JourneyStatus notification = new JourneyStatus();
+        for (int i = 0; i < timetable.length(); i++) {   // for each journey in the timetable
+            JSONObject route = (JSONObject) timetable.get(i);
+            boolean isFinalDestination = route.get("destination").toString().contains(destination);
+            if (isFinalDestination) {
+                notification.setCancelled(route.getBoolean("isCancelled"));
+                notification.setTime(route.get("std").toString());
+                notification.setDelayed(route.get("etd").toString());
+                break;
+            } else {
+                notification = getInfoForSubsequentCallingPoint(route, destination);
+                if (notification.getTime() != null) {
                     break;
                 }
             }
-        return map;
+        }
+        return notification;
+    }
+
+    private JourneyStatus getInfoForSubsequentCallingPoint(JSONObject route, String destination) throws JSONException {
+        JourneyStatus notification = new JourneyStatus();
+        // For each subsequent calling point on the journey
+        JSONArray subsequentCallingPoints = route.getJSONArray("subsequentCallingPoints");
+        for (int j = 0; j < subsequentCallingPoints.length(); j++) {
+
+            JSONArray callingPoints = ((JSONObject) subsequentCallingPoints.get(j)).getJSONArray("callingPoint");
+
+            for (int k = 0; k < callingPoints.length(); k++) {
+                JSONObject callingPoint = ((JSONObject) callingPoints.get(k));
+                System.out.println("Found station: " + callingPoint.get("locationName").toString());
+                boolean isCallingPoint = callingPoint.get("locationName").toString().contains(destination);
+
+                if (isCallingPoint) {
+                    notification.setCancelled(callingPoint.getBoolean("isCancelled"));
+                    notification.setTime(callingPoint.get("st").toString());
+                    notification.setDelayed(callingPoint.get("et").toString());
+                    return notification;
+                }
+            }
+        }
+        return notification;
     }
 
     private StringBuilder getResponseAsString(URL url) throws IOException {
