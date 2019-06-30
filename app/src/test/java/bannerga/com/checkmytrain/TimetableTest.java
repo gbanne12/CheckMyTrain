@@ -11,9 +11,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Map;
 
 import bannerga.com.checkmytrain.json.Timetable;
+import bannerga.com.checkmytrain.notification.JourneyStatus;
 
 public class TimetableTest {
     private static JSONArray dummyJson;
@@ -28,39 +28,39 @@ public class TimetableTest {
     @Test
     public void canGetNextDepartureTime() throws Exception {
         dummyJson = getDummyJsonArray("on-time.json");
-        Map info = new Timetable().getNextTrain(dummyJson, "Glasgow Central");
-        Assert.assertEquals("15:11", info.get("time").toString());
+        JourneyStatus info = new Timetable().getNextTrain(dummyJson, "Glasgow Central");
+        Assert.assertEquals("15:11", info.getTime());
     }
 
     @Test
     public void canConfirmTrainIsOnTime() throws Exception {
         dummyJson = getDummyJsonArray("on-time.json");
-        Map journeyDetails = new Timetable().getNextTrain(dummyJson, "Glasgow Central");
-        Assert.assertEquals("On time", journeyDetails.get("delayed").toString());
+        JourneyStatus journeyDetails = new Timetable().getNextTrain(dummyJson, "Glasgow Central");
+        Assert.assertEquals("On time", journeyDetails.getDelayed());
     }
 
     @Test
     public void canGetTimeOfDelayedTrain() throws Exception {
         dummyJson = getDummyJsonArray("delayed.json");
-        Map journeyDetails = new Timetable().getNextTrain(dummyJson, "Glasgow Central");
-        Assert.assertEquals("08:35", journeyDetails.get("delayed").toString());
+        JourneyStatus journeyDetails = new Timetable().getNextTrain(dummyJson, "Glasgow Central");
+        Assert.assertEquals("08:35", journeyDetails.getDelayed());
     }
 
     @Test
     public void canConfirmTrainIsCancelled() throws Exception {
         dummyJson = getDummyJsonArray("on-time.json");
-        Map info = new Timetable().getNextTrain(dummyJson, "Glasgow Central");
-        String cancelled = info.get("cancelled").toString();
-        Assert.assertTrue(cancelled.equals("true") || cancelled.equals("false"));
+        JourneyStatus info = new Timetable().getNextTrain(dummyJson, "Glasgow Central");
+        Boolean cancelled = info.getCancelled();
+        Assert.assertFalse(cancelled);
     }
 
     @Test
     public void canConfirmTrainIsOnTimeALLEndpoint() throws Exception {
         dummyJson = getDummyJsonArray("all-endpoint.json");
-        Map journeyDetails = new Timetable().getNextTrain(dummyJson, "Williamwood");
-        Assert.assertEquals("On time", journeyDetails.get("delayed").toString());
-        Assert.assertEquals("false", journeyDetails.get("cancelled").toString());
-        Assert.assertEquals("13:41", journeyDetails.get("time").toString());
+        JourneyStatus journeyDetails = new Timetable().getNextTrain(dummyJson, "Williamwood");
+        Assert.assertEquals("On time", journeyDetails.getDelayed());
+        Assert.assertFalse(journeyDetails.getCancelled());
+        Assert.assertEquals("13:41", journeyDetails.getTime());
     }
 
 
