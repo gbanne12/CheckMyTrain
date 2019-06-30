@@ -33,15 +33,32 @@ public class Timetable {
     public Map getNextTrain(JSONArray timetable, String destination) throws Exception {
         Map map = new HashMap();
         for (int i = 0; i < timetable.length(); i++) {
-            JSONObject currentJourney = ((JSONObject) timetable.get(i));
+            JSONObject currentJourney = (JSONObject) timetable.get(i);
                 boolean isDestination =
                         currentJourney.get("destination").toString().contains(destination);
-                if (isDestination) {
-                    map.put("cancelled", currentJourney.getBoolean("isCancelled"));
-                    map.put("time", currentJourney.get("std").toString());
-                    map.put("delayed", currentJourney.get("etd").toString());
-                    break;
+            if (isDestination) {
+                map.put("cancelled", currentJourney.getBoolean("isCancelled"));
+                map.put("time", currentJourney.get("std").toString());
+                map.put("delayed", currentJourney.get("etd").toString());
+                break;
+            } else {
+                JSONArray subsequentCallingPoints =
+                        currentJourney.getJSONArray("subsequentCallingPoints");
+                for (int count = 0; count < subsequentCallingPoints.length(); count++) {
+                    JSONObject currentCallingPoint = (JSONObject) subsequentCallingPoints.get(count);
+                    JSONArray callingPoints = currentCallingPoint.getJSONArray("callingPoint");
+                    JSONObject firstCallingPoint = ((JSONObject) callingPoints.get(i));
+                    boolean isCallingPoint =
+                            firstCallingPoint.get("locationName").toString().contains(destination);
+
+                    if (isCallingPoint) {
+                        map.put("cancelled", firstCallingPoint.getBoolean("isCancelled"));
+                        map.put("time", firstCallingPoint.get("st").toString());
+                        map.put("delayed", firstCallingPoint.get("et").toString());
+                        return map;
+                    }
                 }
+            }
             }
         return map;
     }

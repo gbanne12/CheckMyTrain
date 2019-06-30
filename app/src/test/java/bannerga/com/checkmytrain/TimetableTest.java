@@ -54,6 +54,15 @@ public class TimetableTest {
         Assert.assertTrue(cancelled.equals("true") || cancelled.equals("false"));
     }
 
+    @Test
+    public void canConfirmTrainIsOnTimeALLEndpoint() throws Exception {
+        dummyJson = getDummyJsonArray("all-endpoint.json");
+        Map journeyDetails = new Timetable().getNextTrain(dummyJson, "Cathcart");
+        Assert.assertEquals("On time", journeyDetails.get("delayed").toString());
+        Assert.assertEquals("false", journeyDetails.get("cancelled").toString());
+        Assert.assertEquals("13:36", journeyDetails.get("time").toString());
+    }
+
     private static JSONArray getDummyJsonArray(String filename) throws IOException, JSONException {
         StringBuilder responseString = new StringBuilder();
         File json = new File("src/test/res/" + filename);
