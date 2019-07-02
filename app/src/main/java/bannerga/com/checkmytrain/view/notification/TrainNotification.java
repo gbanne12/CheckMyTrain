@@ -1,5 +1,6 @@
 package bannerga.com.checkmytrain.view.notification;
 
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,23 +9,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
 import bannerga.com.checkmytrain.R;
+import bannerga.com.checkmytrain.notification.JourneyStatus;
 import bannerga.com.checkmytrain.view.activity.journey.JourneyActivity;
 
 public class TrainNotification {
 
-    public void issueNotification(Context context, Map trainInfo) {
+    public void issueNotification(Context context, JourneyStatus journeyStatus) {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         String id = UUID.randomUUID().toString();
         Notification.Builder builder = new Notification.Builder(context, id)
                 .setContentIntent(getPendingIntent(context))
-                .setContentTitle("Status: " + trainInfo.get("delayed").toString())
-                .setContentText("Departure time: " + trainInfo.get("time").toString())
+                .setContentTitle("Status: " + journeyStatus.getDelayed())
+                .setContentText("Departure time: " + journeyStatus.getTime())
                 .setSmallIcon(R.drawable.ic_notification_icon)
                // .setColor(content.getColor())
                 .setAutoCancel(true)

@@ -29,6 +29,7 @@ public class NotificationJob {
 
     private Context context;
     private JobScheduler jobScheduler;
+    private int jobId = -1;
 
     public NotificationJob(Context context) {
         this.context = context;
@@ -48,7 +49,7 @@ public class NotificationJob {
         bundle.putInt("minute", minute);
 
         String timestamp = new SimpleDateFormat("MMddHHmmss").format(new Date());
-        int jobId = Integer.parseInt(timestamp);
+        jobId = Integer.parseInt(timestamp);
 
         String serviceName = NotificationService.class.getName();
         ComponentName service = new ComponentName(context.getPackageName(), serviceName);
@@ -76,6 +77,10 @@ public class NotificationJob {
         }
     }
 
+    public int getJobId() {
+        return jobId;
+    }
+
     public long getOffsetInMillis(int hourOfDay, int minute) {
         ZonedDateTime now = ZonedDateTime.now();
         long nowInMillis = now.toInstant().toEpochMilli();
@@ -94,6 +99,7 @@ public class NotificationJob {
         }
         return offset;
     }
+
 
     private class SaveJourneyAsyncTask extends AsyncTask<String, Void, String> {
 

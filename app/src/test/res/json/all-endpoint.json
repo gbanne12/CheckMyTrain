@@ -1,0 +1,1391 @@
+{
+  "trainServices": [
+    {
+      "previousCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Neilston",
+              "crs": "NEI",
+              "st": "13:19",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Patterton",
+              "crs": "PTT",
+              "st": "13:25",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Whitecraigs",
+              "crs": "WCR",
+              "st": "13:27",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Williamwood",
+              "crs": "WLM",
+              "st": "13:29",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "subsequentCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Cathcart",
+              "crs": "CCT",
+              "st": "13:36",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Mount Florida",
+              "crs": "MFL",
+              "st": "13:38",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Crosshill",
+              "crs": "COI",
+              "st": "13:40",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Queens Park (Glasgow)",
+              "crs": "QPK",
+              "st": "13:42",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Pollokshields East",
+              "crs": "PLE",
+              "st": "13:43",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Glasgow Central",
+              "crs": "GLC",
+              "st": "13:48",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR658700",
+      "sta": "13:32",
+      "eta": "On time",
+      "std": "13:32",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "J1AEgtY0fCSIJI8pSsAD3Q==",
+      "serviceIdPercentEncoded": "J1AEgtY0fCSIJI8pSsAD3Q%3d%3d",
+      "serviceIdGuid": "82045027-34d6-247c-8824-8f294ac003dd",
+      "serviceIdUrlSafe": "J1AEgtY0fCSIJI8pSsAD3Q",
+      "adhocAlerts": null
+    },
+    {
+      "previousCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Glasgow Central",
+              "crs": "GLC",
+              "st": "13:23",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Pollokshields East",
+              "crs": "PLE",
+              "st": "13:28",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Queens Park (Glasgow)",
+              "crs": "QPK",
+              "st": "13:29",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Crosshill",
+              "crs": "COI",
+              "st": "13:31",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Mount Florida",
+              "crs": "MFL",
+              "st": "13:33",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Cathcart",
+              "crs": "CCT",
+              "st": "13:35",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "subsequentCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Williamwood",
+              "crs": "WLM",
+              "st": "13:41",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Whitecraigs",
+              "crs": "WCR",
+              "st": "13:43",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Patterton",
+              "crs": "PTT",
+              "st": "13:46",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Neilston",
+              "crs": "NEI",
+              "st": "13:52",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "origin": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR440200",
+      "sta": "13:38",
+      "eta": "On time",
+      "std": "13:38",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "X7XToF9umyRRLUvHa3VvUQ==",
+      "serviceIdPercentEncoded": "X7XToF9umyRRLUvHa3VvUQ%3d%3d",
+      "serviceIdGuid": "a0d3b55f-6e5f-249b-512d-4bc76b756f51",
+      "serviceIdUrlSafe": "X7XToF9umyRRLUvHa3VvUQ",
+      "adhocAlerts": null
+    },
+    {
+      "previousCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Neilston",
+              "crs": "NEI",
+              "st": "13:48",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Patterton",
+              "crs": "PTT",
+              "st": "13:54",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Whitecraigs",
+              "crs": "WCR",
+              "st": "13:56",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Williamwood",
+              "crs": "WLM",
+              "st": "13:58",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "subsequentCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Cathcart",
+              "crs": "CCT",
+              "st": "14:07",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Mount Florida",
+              "crs": "MFL",
+              "st": "14:10",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Crosshill",
+              "crs": "COI",
+              "st": "14:12",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Queens Park (Glasgow)",
+              "crs": "QPK",
+              "st": "14:14",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Pollokshields East",
+              "crs": "PLE",
+              "st": "14:16",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Glasgow Central",
+              "crs": "GLC",
+              "st": "14:21",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR659100",
+      "sta": "14:01",
+      "eta": "On time",
+      "std": "14:01",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "fI54hI/pi6WySzFjvM7mdg==",
+      "serviceIdPercentEncoded": "fI54hI%2fpi6WySzFjvM7mdg%3d%3d",
+      "serviceIdGuid": "84788e7c-e98f-a58b-b24b-3163bccee676",
+      "serviceIdUrlSafe": "fI54hI_pi6WySzFjvM7mdg",
+      "adhocAlerts": null
+    },
+    {
+      "previousCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Glasgow Central",
+              "crs": "GLC",
+              "st": "13:53",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Pollokshields East",
+              "crs": "PLE",
+              "st": "13:58",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Queens Park (Glasgow)",
+              "crs": "QPK",
+              "st": "13:59",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Crosshill",
+              "crs": "COI",
+              "st": "14:01",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Mount Florida",
+              "crs": "MFL",
+              "st": "14:03",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Cathcart",
+              "crs": "CCT",
+              "st": "14:05",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "subsequentCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Williamwood",
+              "crs": "WLM",
+              "st": "14:11",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Whitecraigs",
+              "crs": "WCR",
+              "st": "14:13",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Patterton",
+              "crs": "PTT",
+              "st": "14:16",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Neilston",
+              "crs": "NEI",
+              "st": "14:22",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "origin": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR440300",
+      "sta": "14:08",
+      "eta": "On time",
+      "std": "14:08",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "X2DWDXD7XAZqGIvRKWrlMQ==",
+      "serviceIdPercentEncoded": "X2DWDXD7XAZqGIvRKWrlMQ%3d%3d",
+      "serviceIdGuid": "0dd6605f-fb70-065c-6a18-8bd1296ae531",
+      "serviceIdUrlSafe": "X2DWDXD7XAZqGIvRKWrlMQ",
+      "adhocAlerts": null
+    },
+    {
+      "previousCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Neilston",
+              "crs": "NEI",
+              "st": "14:19",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Patterton",
+              "crs": "PTT",
+              "st": "14:25",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Whitecraigs",
+              "crs": "WCR",
+              "st": "14:27",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Williamwood",
+              "crs": "WLM",
+              "st": "14:29",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "subsequentCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Cathcart",
+              "crs": "CCT",
+              "st": "14:35",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Mount Florida",
+              "crs": "MFL",
+              "st": "14:37",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Crosshill",
+              "crs": "COI",
+              "st": "14:39",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Queens Park (Glasgow)",
+              "crs": "QPK",
+              "st": "14:41",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Pollokshields East",
+              "crs": "PLE",
+              "st": "14:43",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Glasgow Central",
+              "crs": "GLC",
+              "st": "14:48",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR659500",
+      "sta": "14:32",
+      "eta": "On time",
+      "std": "14:32",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "oQUFiq/hMikKJ8KcQT/N8A==",
+      "serviceIdPercentEncoded": "oQUFiq%2fhMikKJ8KcQT%2fN8A%3d%3d",
+      "serviceIdGuid": "8a0505a1-e1af-2932-0a27-c29c413fcdf0",
+      "serviceIdUrlSafe": "oQUFiq_hMikKJ8KcQT_N8A",
+      "adhocAlerts": null
+    },
+    {
+      "previousCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Glasgow Central",
+              "crs": "GLC",
+              "st": "14:23",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Pollokshields East",
+              "crs": "PLE",
+              "st": "14:28",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Queens Park (Glasgow)",
+              "crs": "QPK",
+              "st": "14:29",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Crosshill",
+              "crs": "COI",
+              "st": "14:31",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Mount Florida",
+              "crs": "MFL",
+              "st": "14:33",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Cathcart",
+              "crs": "CCT",
+              "st": "14:35",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "subsequentCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Williamwood",
+              "crs": "WLM",
+              "st": "14:41",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Whitecraigs",
+              "crs": "WCR",
+              "st": "14:43",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Patterton",
+              "crs": "PTT",
+              "st": "14:46",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Neilston",
+              "crs": "NEI",
+              "st": "14:52",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "origin": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR659800",
+      "sta": "14:38",
+      "eta": "On time",
+      "std": "14:38",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "aLyuAyl5Mb3zwEo4LoDz6g==",
+      "serviceIdPercentEncoded": "aLyuAyl5Mb3zwEo4LoDz6g%3d%3d",
+      "serviceIdGuid": "03aebc68-7929-bd31-f3c0-4a382e80f3ea",
+      "serviceIdUrlSafe": "aLyuAyl5Mb3zwEo4LoDz6g",
+      "adhocAlerts": null
+    },
+    {
+      "previousCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Neilston",
+              "crs": "NEI",
+              "st": "14:48",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Patterton",
+              "crs": "PTT",
+              "st": "14:54",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Whitecraigs",
+              "crs": "WCR",
+              "st": "14:56",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Williamwood",
+              "crs": "WLM",
+              "st": "14:58",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "subsequentCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Cathcart",
+              "crs": "CCT",
+              "st": "15:05",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Mount Florida",
+              "crs": "MFL",
+              "st": "15:07",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Crosshill",
+              "crs": "COI",
+              "st": "15:09",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Queens Park (Glasgow)",
+              "crs": "QPK",
+              "st": "15:11",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Pollokshields East",
+              "crs": "PLE",
+              "st": "15:12",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Glasgow Central",
+              "crs": "GLC",
+              "st": "15:17",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "origin": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR660100",
+      "sta": "15:01",
+      "eta": "On time",
+      "std": "15:01",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "od4LE7JNlsPdJhS+2ZmmaA==",
+      "serviceIdPercentEncoded": "od4LE7JNlsPdJhS%2b2ZmmaA%3d%3d",
+      "serviceIdGuid": "130bdea1-4db2-c396-dd26-14bed999a668",
+      "serviceIdUrlSafe": "od4LE7JNlsPdJhS-2ZmmaA",
+      "adhocAlerts": null
+    },
+    {
+      "previousCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Glasgow Central",
+              "crs": "GLC",
+              "st": "14:53",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Pollokshields East",
+              "crs": "PLE",
+              "st": "14:58",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Queens Park (Glasgow)",
+              "crs": "QPK",
+              "st": "14:59",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Crosshill",
+              "crs": "COI",
+              "st": "15:01",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Mount Florida",
+              "crs": "MFL",
+              "st": "15:03",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Cathcart",
+              "crs": "CCT",
+              "st": "15:05",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "subsequentCallingPoints": [
+        {
+          "callingPoint": [
+            {
+              "locationName": "Williamwood",
+              "crs": "WLM",
+              "st": "15:11",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Whitecraigs",
+              "crs": "WCR",
+              "st": "15:13",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Patterton",
+              "crs": "PTT",
+              "st": "15:16",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            },
+            {
+              "locationName": "Neilston",
+              "crs": "NEI",
+              "st": "15:22",
+              "et": "On time",
+              "at": null,
+              "isCancelled": false,
+              "length": 0,
+              "detachFront": false,
+              "adhocAlerts": null
+            }
+          ],
+          "serviceType": 0,
+          "serviceChangeRequired": false,
+          "assocIsCancelled": false
+        }
+      ],
+      "origin": [
+        {
+          "locationName": "Glasgow Central",
+          "crs": "GLC",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Neilston",
+          "crs": "NEI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "SR660400",
+      "sta": "15:08",
+      "eta": "On time",
+      "std": "15:08",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "ScotRail",
+      "operatorCode": "SR",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 0,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "For/ncStOoGPKLn+EDTTCw==",
+      "serviceIdPercentEncoded": "For%2fncStOoGPKLn%2bEDTTCw%3d%3d",
+      "serviceIdGuid": "9dff8a16-adc4-813a-8f28-b9fe1034d30b",
+      "serviceIdUrlSafe": "For_ncStOoGPKLn-EDTTCw",
+      "adhocAlerts": null
+    }
+  ],
+  "busServices": null,
+  "ferryServices": null,
+  "generatedAt": "2019-06-30T12:12:33.3639324+00:00",
+  "locationName": "Muirend",
+  "crs": "MUI",
+  "filterLocationName": null,
+  "filtercrs": null,
+  "filterType": 0,
+  "nrccMessages": null,
+  "platformAvailable": true,
+  "areServicesAvailable": true
+}

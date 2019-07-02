@@ -68,7 +68,7 @@ public class NotificationService extends JobService {
         }
 
         private void issueNotifcation() {
-            Map trainInfo = new HashMap();
+            JourneyStatus trainInfo = new JourneyStatus();
             try {
                 String departureStationCode = db.stationDao().findByName(departureStation).getCrs();
                 Timetable timetable = new Timetable();

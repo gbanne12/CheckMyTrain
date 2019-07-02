@@ -1,6 +1,7 @@
 package bannerga.com.checkmytrain
 
 import bannerga.com.checkmytrain.json.Timetable
+import bannerga.com.checkmytrain.notification.JourneyStatus
 import junit.framework.Assert.assertEquals
 import org.json.JSONArray
 import org.json.JSONException
@@ -12,7 +13,6 @@ import java.io.*
 class TimetableTest {
 
     private var dummyJson: JSONArray? = null
-    private val destination: String = "Glasgow Central"
 
     @Test
     @Throws(Exception::class)
@@ -24,38 +24,45 @@ class TimetableTest {
 
     @Test
     @Throws(Exception::class)
-    fun canGetMapForOnTimeTrain() {
+    fun canGetInfoForDestinationWhenOnTime() {
         dummyJson = getDummyJsonArray("on-time.json")
-        val nextTrain = Timetable().getNextJourney(dummyJson, destination)
+        val destination = "Glasgow Central"
+        val journey: JourneyStatus = Timetable().getNextJourney(dummyJson, destination)
 
-        val time = nextTrain["time"]?.toString()
-        val delayedStatus = nextTrain["delayed"]?.toString()
-        val cancelledStatus = nextTrain["cancelled"]?.toString()
-
-        assertEquals("15:11", time)
-        assertEquals("On time", delayedStatus)
-        assertEquals("false", cancelledStatus)
+        assertEquals("15:11", journey.time)
+        assertEquals("On time", journey.delayed)
+        assertEquals(false, journey.cancelled)
     }
 
     @Test
     @Throws(Exception::class)
-    fun canGetMapForDelayedTrain() {
-        dummyJson = getDummyJsonArray("delayed.json")
-        val nextTrain = Timetable().getNextJourney(dummyJson, destination)
+    fun canGetInfoForSubsequentWhenOnTime() {
+        dummyJson = getDummyJsonArray("all-endpoint.json")
+        val callingPoint = "Williamwood"
+        val journey: JourneyStatus = Timetable().getNextJourney(dummyJson, callingPoint)
 
-        val time = nextTrain["time"]?.toString()
-        val delayedStatus = nextTrain["delayed"]?.toString()
-        val cancelledStatus = nextTrain["cancelled"]?.toString()
-
-        assertEquals("08:20", time)
-        assertEquals("08:35", delayedStatus)
-        assertEquals("false", cancelledStatus)
+        assertEquals("13:41", journey.time)
+        assertEquals("On time", journey.delayed)
+        assertEquals(false, journey.cancelled)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun canGetInfoForDelayedDestination() {
+        dummyJson = getDummyJsonArray("delayed.json")
+        val destination = "Glasgow Central"
+        val journey: JourneyStatus = Timetable().getNextJourney(dummyJson, destination)
+
+        assertEquals("08:20", journey.time)
+        assertEquals("08:35", journey.delayed)
+        assertEquals(false, journey.cancelled)
+    }
+
 
     @Throws(IOException::class, JSONException::class)
     private fun getDummyJsonArray(filename: String): JSONArray {
         val responseString = StringBuilder()
-        val jsonFile = File("src/test/res/$filename")
+        val jsonFile = File("src/test/res/json/$filename")
         val stream = FileInputStream(jsonFile)
         val bufferedReader = BufferedReader(InputStreamReader(stream))
         var line: String? = bufferedReader.readLine()
