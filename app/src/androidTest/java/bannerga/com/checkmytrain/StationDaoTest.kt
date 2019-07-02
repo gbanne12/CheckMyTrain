@@ -1,15 +1,15 @@
 package bannerga.com.checkmytrain
 
 import androidx.room.Room
-import androidx.test.InstrumentationRegistry
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import bannerga.com.checkmytrain.data.AppDatabase
 import bannerga.com.checkmytrain.data.Station
 import bannerga.com.checkmytrain.data.StationDAO
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.io.BufferedReader
@@ -18,6 +18,7 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.net.URLConnection
 
+
 class StationDaoTest {
 
     private var staionDao: StationDAO? = null
@@ -25,8 +26,8 @@ class StationDaoTest {
     @Before
     @Throws(IOException::class, JSONException::class)
     fun setup() {
-        val db = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(),
-                AppDatabase::class.java).build()
+        val context = getInstrumentation().context
+        val db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
         staionDao = db.stationDao()
 
         val stationArray: JSONArray = stationJson
