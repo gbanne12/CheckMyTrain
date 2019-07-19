@@ -1,23 +1,17 @@
 package bannerga.com.checkmytrain.view.robot
 
-import android.view.View
 import android.widget.TimePicker
-
-import androidx.test.espresso.contrib.PickerActions
-import androidx.test.espresso.matcher.RootMatchers
-
-import org.hamcrest.Matcher
-import org.hamcrest.Matchers
-
-import bannerga.com.checkmytrain.R
-
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.contrib.PickerActions
+import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import bannerga.com.checkmytrain.R
 import org.hamcrest.CoreMatchers.anything
+import org.hamcrest.Matchers
 
 class JourneyRobot {
 
@@ -27,8 +21,9 @@ class JourneyRobot {
     private val timePicker = withClassName(Matchers.equalTo(TimePicker::class.java.name))
     private val timePickerSubmit = withId(android.R.id.button1)
     private val journeySubmit = withId(R.id.button_submit)
+    private val cardViewToolbarItem = withId(R.id.action_show_cards)
 
-    fun setJourney(departing: String, arriving: String, hour: Int, minutes: Int): JourneyRobot {
+    fun addJourney(departing: String, arriving: String, hour: Int, minutes: Int): JourneyRobot {
         onView(departureInput).perform(typeText(departing))
         onView(arrivalInput).perform(typeText(arriving))
         onData(anything())
@@ -40,6 +35,11 @@ class JourneyRobot {
         onView(timePickerSubmit).perform(click())
         onView(journeySubmit).perform(click())
         return this
+    }
+
+    fun viewSavedCards(): CardsRobot {
+        onView(cardViewToolbarItem).perform(click())
+        return CardsRobot()
     }
 
 }

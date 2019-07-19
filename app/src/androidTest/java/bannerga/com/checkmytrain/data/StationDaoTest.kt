@@ -1,10 +1,7 @@
-package bannerga.com.checkmytrain
+package bannerga.com.checkmytrain.data
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import bannerga.com.checkmytrain.data.AppDatabase
-import bannerga.com.checkmytrain.data.Station
-import bannerga.com.checkmytrain.data.StationDAO
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject

@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view
+package bannerga.com.checkmytrain.view.tests
 
 import androidx.test.rule.ActivityTestRule
 
@@ -23,9 +23,7 @@ class AddJourneyTest {
         JourneyRobot()
                 .addJourney(departing, arriving, hour, minutes)
                 .viewSavedCards()
-                .checkCardIsDisplayed()
-                .checkDepartureStationMatches(departing)
-                .checkArrivalStationMatches(arriving)
+                .checkCardIsDisplayed(departing, arriving)
     }
 
 }

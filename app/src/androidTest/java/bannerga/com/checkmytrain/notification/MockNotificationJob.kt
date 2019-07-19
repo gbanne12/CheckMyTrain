@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain
+package bannerga.com.checkmytrain.notification
 
 import android.content.Context
 
