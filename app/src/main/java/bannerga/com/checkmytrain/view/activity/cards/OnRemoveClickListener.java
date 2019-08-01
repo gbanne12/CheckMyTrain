@@ -3,6 +3,7 @@ package bannerga.com.checkmytrain.view.activity.cards;
 import android.app.job.JobScheduler;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 
 import androidx.room.Room;
@@ -18,7 +19,7 @@ public class OnRemoveClickListener implements View.OnClickListener {
     private Context context;
     private Journey journey;
     private View card;
-    private Boolean isDeleted = false;
+    private final String CLASS_NAME = getClass().getSimpleName();
 
     public OnRemoveClickListener(Context context, Journey journey, View card) {
         this.context = context;
@@ -38,18 +39,20 @@ public class OnRemoveClickListener implements View.OnClickListener {
 
         @Override
         protected Boolean doInBackground(String... strings) {
+            int jobId = journey.getJobId();
+
             AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, "checkmytrain.db")
                     .fallbackToDestructiveMigration()
                     .build();
             JourneyDAO dao = db.dao();
             dao.delete(journey);
+            Log.i(CLASS_NAME, "Job " + jobId + " removed from " + " database");
+
+            JobScheduler jobScheduler =
+                    (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
+            jobScheduler.cancel(jobId);
+            Log.i(CLASS_NAME, "Job " + jobId + "removed from " + "scheduler");
             return true;
         }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            isDeleted = result;
-        }
-
     }
 }

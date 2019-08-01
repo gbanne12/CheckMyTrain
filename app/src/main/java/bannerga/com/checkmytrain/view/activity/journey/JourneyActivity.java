@@ -18,6 +18,7 @@ import com.facebook.stetho.Stetho;
 import com.google.android.material.textfield.TextInputEditText;
 
 import bannerga.com.checkmytrain.R;
+import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.notification.NotificationJob;
 import bannerga.com.checkmytrain.view.activity.cards.CardActivity;
 import bannerga.com.checkmytrain.view.autocompletetextview.StationTextWatcher;
@@ -88,19 +89,21 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     public void onSubmitClick(View view) {
-        boolean isMissingUserInput = timeText.getText().toString().equals("")
-                || arrivalStationText.getText().toString().equals("")
-                || departureStationText.getText().toString().equals("");
+        String origin = departureStationText.getText().toString();
+        String destination = arrivalStationText.getText().toString();
+        String time = timeText.getText().toString();
 
-        if (!isMissingUserInput) {
-            notificationJob.scheduleJob(
-                    departureStationText.getText().toString(),
-                    arrivalStationText.getText().toString(),
-                    hourOfDay,
-                    minute);
+        if (!origin.equals("") || !destination.equals("") || !time.equals("")) {
+            Journey journey = new Journey();
+            journey.setOrigin(origin);
+            journey.setDestination(destination);
+            journey.setHour(hourOfDay);
+            journey.setMinute(minute);
+            notificationJob.saveJob(journey);
+            notificationJob.scheduleJob(journey);
             Toast.makeText(this, "Journey added", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "Enter station details", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Enter journey details", Toast.LENGTH_LONG).show();
         }
     }
 }
