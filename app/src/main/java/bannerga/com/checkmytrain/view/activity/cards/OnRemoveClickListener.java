@@ -29,8 +29,6 @@ public class OnRemoveClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-        jobScheduler.cancel(journey.getJobId());
         new RemoveJourneyAsyncTask().execute();
         card.setVisibility(View.GONE);
     }
@@ -39,7 +37,7 @@ public class OnRemoveClickListener implements View.OnClickListener {
 
         @Override
         protected Boolean doInBackground(String... strings) {
-            int jobId = journey.getJobId();
+            int jobId = journey.getId();
 
             AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, "checkmytrain.db")
                     .fallbackToDestructiveMigration()
