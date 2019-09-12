@@ -13,6 +13,16 @@ public interface JourneyDAO {
     @Query("SELECT * FROM journey")
     List<Journey> getAll();
 
+    @Query("SELECT * FROM journey " +
+            "WHERE origin LIKE :origin " +
+            "AND destination LIKE :destination " +
+            "AND hour LIKE :hour " +
+            "AND minute LIKE :minute")
+    List<Journey> getJourney(String origin, String destination, int hour, int minute);
+
+    @Query("SELECT * FROM station WHERE name LIKE '%' || :name || '%'")
+    List<Station> findByPartialName(String name);
+
     @Insert
     void insertAll(Journey... journeys);
 

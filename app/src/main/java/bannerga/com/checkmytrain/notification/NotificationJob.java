@@ -17,13 +17,14 @@ import java.time.ZonedDateTime;
 import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.data.JourneyDAO;
+import bannerga.com.checkmytrain.view.activity.journey.FindJourneyAsyncTask;
 
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 /***
  * Job that will schedule {@link NotificationService} to query the journey information
  */
-public class NotificationJob {
+public class NotificationJob implements FindJourneyAsyncTask.AsyncResponse {
 
     private Context context;
     private JobScheduler jobScheduler;
@@ -38,26 +39,7 @@ public class NotificationJob {
      * until the journey information is to be queried
      */
     public void scheduleJob(Journey journey) {
-        long offset = getOffsetInMillis(journey.getHour(), journey.getMinute());
-        PersistableBundle bundle = new PersistableBundle();
-        bundle.putString("departureStation", journey.getOrigin());
-        bundle.putString("arrivalStation", journey.getDestination());
-        bundle.putInt("hour", journey.getHour());
-        bundle.putInt("minute", journey.getMinute());
-        jobId = journey.getId();
-
-        String serviceClass = NotificationService.class.getName();
-        ComponentName jobService = new ComponentName(context.getPackageName(), serviceClass);
-
-        JobInfo.Builder builder = new JobInfo.Builder(jobId, jobService);
-        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
-                .setMinimumLatency(offset)
-                .setExtras(bundle);
-        JobInfo notificationJob = builder.build();
-        jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-        jobScheduler.schedule(notificationJob);
-        Log.i(getClass().getSimpleName(), "Scheduled job with id: " + jobId);
+        new FindJourneyAsyncTask(journey, context, this).execute();
     }
 
     public void saveJob(Journey journey) {
@@ -85,6 +67,32 @@ public class NotificationJob {
             offset = tomorrowInMillis - nowInMillis;
         }
         return offset;
+    }
+
+    @Override
+    public void processFinish(Journey journey) {
+        jobId = journey.getId();
+        Log.i(getClass().getSimpleName(), "Job id set as: " + jobId);
+
+        long offset = getOffsetInMillis(journey.getHour(), journey.getMinute());
+        PersistableBundle bundle = new PersistableBundle();
+        bundle.putString("departureStation", journey.getOrigin());
+        bundle.putString("arrivalStation", journey.getDestination());
+        bundle.putInt("hour", journey.getHour());
+        bundle.putInt("minute", journey.getMinute());
+
+        String serviceClass = NotificationService.class.getName();
+        ComponentName jobService = new ComponentName(context.getPackageName(), serviceClass);
+
+        JobInfo.Builder builder = new JobInfo.Builder(jobId, jobService);
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
+                .setMinimumLatency(offset)
+                .setExtras(bundle);
+        JobInfo notificationJob = builder.build();
+        jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
+        jobScheduler.schedule(notificationJob);
+        Log.i(getClass().getSimpleName(), "Scheduled job with id: " + jobId);
     }
 
     private class SaveJourneyAsyncTask extends AsyncTask<String, Void, String> {
