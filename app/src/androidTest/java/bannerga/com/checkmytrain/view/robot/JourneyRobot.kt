@@ -25,10 +25,14 @@ class JourneyRobot {
 
     fun addJourney(departing: String, arriving: String, hour: Int, minutes: Int): JourneyRobot {
         onView(departureInput).perform(typeText(departing))
+        onData(anything())
+                .inRoot(RootMatchers.isPlatformPopup())
+                .atPosition(0)
+                .perform(click())
         onView(arrivalInput).perform(typeText(arriving))
         onData(anything())
                 .inRoot(RootMatchers.isPlatformPopup())
-                .atPosition(1)
+                .atPosition(0)
                 .perform(click())
         onView(timeInput).perform(click())
         onView(timePicker).perform(PickerActions.setTime(hour, minutes))
