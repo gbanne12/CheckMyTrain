@@ -7,28 +7,28 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.PersistableBundle;
-import android.widget.Toast;
+import android.util.Log;
 
 import androidx.room.Room;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.data.JourneyDAO;
+import bannerga.com.checkmytrain.view.activity.journey.FindJourneyAsyncTask;
 
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 /***
  * Job that will schedule {@link NotificationService} to query the journey information
  */
-public class NotificationJob {
+public class NotificationJob implements FindJourneyAsyncTask.AsyncResponse {
 
     private Context context;
     private JobScheduler jobScheduler;
+    private int jobId = -1;
 
     public NotificationJob(Context context) {
         this.context = context;
@@ -37,43 +37,17 @@ public class NotificationJob {
     /***
      * Schedule the notification using the number of milliseconds
      * until the journey information is to be queried
-     * @return the id of the scheduled job
      */
-    public void scheduleJob(String departureStation, String arrivalStation, int hour, int minute) {
-        long offset = getOffsetInMillis(hour, minute);
-        PersistableBundle bundle = new PersistableBundle();
-        bundle.putString("departureStation", departureStation);
-        bundle.putString("arrivalStation", arrivalStation);
-        bundle.putInt("hour", hour);
-        bundle.putInt("minute", minute);
-
-        String timestamp = new SimpleDateFormat("MMddHHmmss").format(new Date());
-        int jobId = Integer.parseInt(timestamp);
-
-        String serviceName = NotificationService.class.getName();
-        ComponentName service = new ComponentName(context.getPackageName(), serviceName);
-
-        JobInfo.Builder builder = new JobInfo.Builder(jobId, service);
-        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
-                .setMinimumLatency(offset)
-                .setExtras(bundle);
-        JobInfo notificationJob = builder.build();
-        jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-        jobScheduler.schedule(notificationJob);
-
-        new SaveJourneyAsyncTask(jobId, departureStation, arrivalStation, hour, minute).execute();
+    public void scheduleJob(Journey journey) {
+        new FindJourneyAsyncTask(journey, context, this).execute();
     }
 
-    public void cancelJob(int jobId) {
-        if (jobScheduler != null) {
-            jobScheduler.cancelAll();
-            jobScheduler = null;
-            Toast.makeText(context, "Jobs cancelled", Toast.LENGTH_SHORT).show();
-        } else {
-            jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-            jobScheduler.cancel(jobId);
-        }
+    public void saveJob(Journey journey) {
+        new SaveJourneyAsyncTask(journey).execute();
+    }
+
+    public int getJobId() {
+        return jobId;
     }
 
     public long getOffsetInMillis(int hourOfDay, int minute) {
@@ -95,22 +69,38 @@ public class NotificationJob {
         return offset;
     }
 
+    @Override
+    public void processFinish(Journey journey) {
+        jobId = journey.getId();
+        Log.i(getClass().getSimpleName(), "Job id set as: " + jobId);
+
+        long offset = getOffsetInMillis(journey.getHour(), journey.getMinute());
+        PersistableBundle bundle = new PersistableBundle();
+        bundle.putString("departureStation", journey.getOrigin());
+        bundle.putString("arrivalStation", journey.getDestination());
+        bundle.putInt("hour", journey.getHour());
+        bundle.putInt("minute", journey.getMinute());
+
+        String serviceClass = NotificationService.class.getName();
+        ComponentName jobService = new ComponentName(context.getPackageName(), serviceClass);
+
+        JobInfo.Builder builder = new JobInfo.Builder(jobId, jobService);
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
+                .setMinimumLatency(offset)
+                .setExtras(bundle);
+        JobInfo notificationJob = builder.build();
+        jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
+        jobScheduler.schedule(notificationJob);
+        Log.i(getClass().getSimpleName(), "Scheduled job with id: " + jobId);
+    }
+
     private class SaveJourneyAsyncTask extends AsyncTask<String, Void, String> {
-
-        private String departureStation;
-        private String arrivalStation;
-        private int hour;
-        private int minute;
-        private int jobId;
         private AppDatabase db;
+        private Journey journey;
 
-        public SaveJourneyAsyncTask(
-                int jobId, String departureStation, String arrivalStation, int hour, int minute) {
-            this.departureStation = departureStation;
-            this.arrivalStation = arrivalStation;
-            this.hour = hour;
-            this.minute = minute;
-            this.jobId = jobId;
+        public SaveJourneyAsyncTask(Journey journey) {
+            this.journey = journey;
             db = Room.databaseBuilder(context, AppDatabase.class, "checkmytrain.db")
                     .fallbackToDestructiveMigration()
                     .build();
@@ -118,20 +108,9 @@ public class NotificationJob {
 
         @Override
         protected String doInBackground(String... strings) {
-            Journey journey = new Journey();
-            journey.setJobId(jobId);
-            journey.setOrigin(departureStation);
-            journey.setDestination(arrivalStation);
-            journey.setHour(hour);
-            journey.setMinute(minute);
             JourneyDAO dao = db.dao();
             dao.insertAll(journey);
             return "pass";
-        }
-
-        @Override
-        protected void onPostExecute(String adapter) {
-
         }
     }
 }

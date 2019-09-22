@@ -13,14 +13,15 @@ public interface JourneyDAO {
     @Query("SELECT * FROM journey")
     List<Journey> getAll();
 
-    @Query("SELECT * FROM journey ORDER by id desc LIMIT 1")
-    Journey getLast();
+    @Query("SELECT * FROM journey " +
+            "WHERE origin LIKE :origin " +
+            "AND destination LIKE :destination " +
+            "AND hour LIKE :hour " +
+            "AND minute LIKE :minute")
+    List<Journey> getJourney(String origin, String destination, int hour, int minute);
 
-    @Query("SELECT * FROM journey WHERE id IN (:Ids)")
-    List<Journey> loadAllByIds(int[] Ids);
-
-    @Query("SELECT * FROM journey WHERE origin LIKE :stationCode LIMIT 1")
-    Journey findByOrigin(String stationCode);
+    @Query("SELECT * FROM station WHERE name LIKE '%' || :name || '%'")
+    List<Station> findByPartialName(String name);
 
     @Insert
     void insertAll(Journey... journeys);

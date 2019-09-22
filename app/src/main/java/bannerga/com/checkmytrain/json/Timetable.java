@@ -30,7 +30,7 @@ public class Timetable {
         return new JSONArray(getResponseAsString(stationsEndpoint).toString());
     }
 
-    public JourneyStatus getNextTrain(JSONArray timetable, String destination) throws Exception {
+    public JourneyStatus getNextJourney(JSONArray timetable, String destination) throws Exception {
         JourneyStatus notification = new JourneyStatus();
         for (int i = 0; i < timetable.length(); i++) {   // for each journey in the timetable
             JSONObject route = (JSONObject) timetable.get(i);
@@ -56,12 +56,14 @@ public class Timetable {
         JSONArray subsequentCallingPoints = route.getJSONArray("subsequentCallingPoints");
         for (int j = 0; j < subsequentCallingPoints.length(); j++) {
 
-            JSONArray callingPoints = ((JSONObject) subsequentCallingPoints.get(j)).getJSONArray("callingPoint");
+            JSONArray callingPoints = ((JSONObject) subsequentCallingPoints.get(j)).getJSONArray(
+                    "callingPoint");
 
             for (int k = 0; k < callingPoints.length(); k++) {
                 JSONObject callingPoint = ((JSONObject) callingPoints.get(k));
                 System.out.println("Found station: " + callingPoint.get("locationName").toString());
-                boolean isCallingPoint = callingPoint.get("locationName").toString().contains(destination);
+                boolean isCallingPoint =
+                        callingPoint.get("locationName").toString().contains(destination);
 
                 if (isCallingPoint) {
                     notification.setCancelled(callingPoint.getBoolean("isCancelled"));

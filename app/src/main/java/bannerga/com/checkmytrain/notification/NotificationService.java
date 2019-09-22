@@ -4,6 +4,7 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.room.Room;
 
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bannerga.com.checkmytrain.data.AppDatabase;
+import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.json.Timetable;
 import bannerga.com.checkmytrain.view.notification.TrainNotification;
 
@@ -20,7 +22,6 @@ import bannerga.com.checkmytrain.view.notification.TrainNotification;
  * Service that will query the journey details and issue a notification on the train's punctuality.
  */
 public class NotificationService extends JobService {
-
 
     private String departureStation;
     private String arrivalStation;
@@ -63,8 +64,14 @@ public class NotificationService extends JobService {
 
         @Override
         protected void onPostExecute(Map result) {
+            Log.i(this.getClass().getSimpleName(), "Schedule new job for..." + hour + minute);
             NotificationJob job = new NotificationJob(context);
-            job.scheduleJob(departureStation, arrivalStation, hour, minute);
+            Journey journey = new Journey();
+            journey.setOrigin(departureStation);
+            journey.setDestination(arrivalStation);
+            journey.setHour(hour);
+            journey.setMinute(minute);
+            job.scheduleJob(journey);
         }
 
         private void issueNotifcation() {
@@ -73,7 +80,7 @@ public class NotificationService extends JobService {
                 String departureStationCode = db.stationDao().findByName(departureStation).getCrs();
                 Timetable timetable = new Timetable();
                 JSONArray journeys = timetable.getAllJourneys(departureStationCode);
-                trainInfo = timetable.getNextTrain(journeys, arrivalStation);
+                trainInfo = timetable.getNextJourney(journeys, arrivalStation);
             } catch (Exception e) {
                 e.printStackTrace();
             }
