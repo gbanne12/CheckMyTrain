@@ -1,18 +1,18 @@
 package bannerga.com.checkmytrain.view.activity.cards;
 
-import android.app.job.JobScheduler;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
 import androidx.room.Room;
+import androidx.work.WorkManager;
+
+import java.util.UUID;
 
 import bannerga.com.checkmytrain.data.AppDatabase;
 import bannerga.com.checkmytrain.data.Journey;
 import bannerga.com.checkmytrain.data.JourneyDAO;
-
-import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 public class OnRemoveClickListener implements View.OnClickListener {
 
@@ -46,10 +46,8 @@ public class OnRemoveClickListener implements View.OnClickListener {
             dao.delete(journey);
             Log.i(CLASS_NAME, "Job " + jobId + " removed from " + " database");
 
-            JobScheduler jobScheduler =
-                    (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-            jobScheduler.cancel(jobId);
-            Log.i(CLASS_NAME, "Job " + jobId + "removed from " + "scheduler");
+            WorkManager.getInstance(context).cancelWorkById(UUID.fromString(journey.getUuid()));
+            Log.i(CLASS_NAME, "Worker " + jobId + "removed");
             return true;
         }
     }

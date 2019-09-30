@@ -1,29 +1,26 @@
 package bannerga.com.checkmytrain.view.activity.journey;
 
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
 import android.content.Context;
-import android.os.PersistableBundle;
-import android.util.Log;
 
-import java.text.SimpleDateFormat;
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import bannerga.com.checkmytrain.data.Journey;
-import bannerga.com.checkmytrain.notification.NotificationService;
-
-import static android.content.Context.JOB_SCHEDULER_SERVICE;
+import bannerga.com.checkmytrain.notification.NotificationWorker;
 
 public class JourneyController {
 
-    public void scheduleJourney(Journey journey, Context context) {
-        String timestamp = new SimpleDateFormat("MMddHHmmss").format(new Date());
-        int jobId = Integer.parseInt(timestamp);
-        journey.setId(jobId);
-        Log.i(getClass().getSimpleName(), "Job id set as: " + jobId);
+    String scheduleWork(Journey journey, Context context) {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
 
         ZonedDateTime now = ZonedDateTime.now();
         long nowInMillis = now.toInstant().toEpochMilli();
@@ -42,28 +39,22 @@ public class JourneyController {
             offset = tomorrowInMillis - nowInMillis;
         }
 
-        PersistableBundle bundle = new PersistableBundle();
-        bundle.putString("departureStation", journey.getOrigin());
-        bundle.putString("arrivalStation", journey.getDestination());
-        bundle.putInt("hour", journey.getHour());
-        bundle.putInt("minute", journey.getMinute());
-        bundle.putInt("jobid", journey.getJobId());
+        Data.Builder data = new Data.Builder();
+        data.putString("origin", journey.getOrigin());
+        data.putString("destination", journey.getDestination());
 
-        String serviceClass = NotificationService.class.getName();
-        ComponentName jobService = new ComponentName(context.getPackageName(), serviceClass);
+        PeriodicWorkRequest notificationWorkRequest =
+                new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES)
+                        .setInputData(data.build())
+                        .setConstraints(constraints)
+                        .setInitialDelay(offset, TimeUnit.MILLISECONDS)
+                        .build();
 
-        JobInfo.Builder builder = new JobInfo.Builder(jobId, jobService);
-        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setBackoffCriteria(10000, JobInfo.BACKOFF_POLICY_LINEAR)
-                .setMinimumLatency(offset)
-                .setExtras(bundle);
-        JobInfo notificationJob = builder.build();
-        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-        jobScheduler.schedule(notificationJob);
-        Log.i(getClass().getSimpleName(), "Scheduled job with id: " + jobId);
+        WorkManager.getInstance(context).enqueue(notificationWorkRequest);
+        return notificationWorkRequest.getId().toString();
     }
 
-    public void saveJourney(Journey journey, Context context) {
+    void saveJourney(Journey journey, Context context) {
         new SaveJourneyAsyncTask(journey, context).execute();
     }
 

@@ -19,14 +19,12 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import bannerga.com.checkmytrain.R;
 import bannerga.com.checkmytrain.data.Journey;
-import bannerga.com.checkmytrain.notification.NotificationJob;
 import bannerga.com.checkmytrain.view.activity.cards.CardActivity;
 import bannerga.com.checkmytrain.view.autocompletetextview.StationTextWatcher;
 import bannerga.com.checkmytrain.view.fragment.TimePickerFragment;
 
 public class JourneyActivity extends AppCompatActivity {
 
-    private NotificationJob notificationJob = new NotificationJob(this);
     private AutoCompleteTextView arrivalStationText;
     private AutoCompleteTextView departureStationText;
     private TextInputEditText timeText;
@@ -101,7 +99,8 @@ public class JourneyActivity extends AppCompatActivity {
             journey.setMinute(minute);
 
             JourneyController controller = new JourneyController();
-            controller.scheduleJourney(journey, this);
+            String workId = controller.scheduleWork(journey, this);
+            journey.setUuid(workId);
             controller.saveJourney(journey, this);
             Toast.makeText(this, "Journey added", Toast.LENGTH_LONG).show();
         } else {
