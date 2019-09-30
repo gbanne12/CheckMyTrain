@@ -99,8 +99,10 @@ public class JourneyActivity extends AppCompatActivity {
             journey.setDestination(destination);
             journey.setHour(hourOfDay);
             journey.setMinute(minute);
-            notificationJob.saveJob(journey);
-            notificationJob.scheduleJob(journey);
+
+            JourneyController controller = new JourneyController();
+            controller.scheduleJourney(journey, this);
+            controller.saveJourney(journey, this);
             Toast.makeText(this, "Journey added", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Enter journey details", Toast.LENGTH_LONG).show();

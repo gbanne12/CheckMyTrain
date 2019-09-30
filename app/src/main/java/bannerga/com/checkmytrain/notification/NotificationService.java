@@ -27,6 +27,7 @@ public class NotificationService extends JobService {
     private String arrivalStation;
     private int hour;
     private int minute;
+    private int jobId;
 
     @Override
     public boolean onStartJob(JobParameters params) {
