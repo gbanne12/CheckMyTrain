@@ -45,7 +45,7 @@ public class JourneyController {
         data.putString("destination", journey.getDestination());
 
         PeriodicWorkRequest notificationWorkRequest =
-                new PeriodicWorkRequest.Builder(NotificationWorker.class, 15, TimeUnit.MINUTES)
+                new PeriodicWorkRequest.Builder(NotificationWorker.class, 24, TimeUnit.HOURS)
                         .setInputData(data.build())
                         .setConstraints(constraints)
                         .setInitialDelay(offset, TimeUnit.MILLISECONDS)
