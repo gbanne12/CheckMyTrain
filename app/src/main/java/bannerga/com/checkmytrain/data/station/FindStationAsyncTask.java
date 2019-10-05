@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.activity.journey;
+package bannerga.com.checkmytrain.data.station;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -11,9 +11,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import bannerga.com.checkmytrain.data.AppDatabase;
-import bannerga.com.checkmytrain.data.Station;
-import bannerga.com.checkmytrain.data.StationDAO;
+import bannerga.com.checkmytrain.data.model.AppDatabase;
+import bannerga.com.checkmytrain.data.model.Station;
+import bannerga.com.checkmytrain.data.model.StationDAO;
 
 public class FindStationAsyncTask extends AsyncTask<String, Void, ArrayAdapter<String>> {
 

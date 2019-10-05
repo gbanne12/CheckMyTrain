@@ -12,7 +12,8 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.concurrent.TimeUnit;
 
-import bannerga.com.checkmytrain.data.Journey;
+import bannerga.com.checkmytrain.data.journey.SaveJourneyAsyncTask;
+import bannerga.com.checkmytrain.data.model.Journey;
 import bannerga.com.checkmytrain.notification.NotificationWorker;
 
 public class JourneyController {

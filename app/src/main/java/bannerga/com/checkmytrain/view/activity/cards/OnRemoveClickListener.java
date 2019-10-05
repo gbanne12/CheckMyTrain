@@ -10,9 +10,9 @@ import androidx.work.WorkManager;
 
 import java.util.UUID;
 
-import bannerga.com.checkmytrain.data.AppDatabase;
-import bannerga.com.checkmytrain.data.Journey;
-import bannerga.com.checkmytrain.data.JourneyDAO;
+import bannerga.com.checkmytrain.data.model.AppDatabase;
+import bannerga.com.checkmytrain.data.model.Journey;
+import bannerga.com.checkmytrain.data.model.JourneyDAO;
 
 public class OnRemoveClickListener implements View.OnClickListener {
 

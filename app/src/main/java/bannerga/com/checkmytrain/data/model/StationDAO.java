@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.data;
+package bannerga.com.checkmytrain.data.model;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

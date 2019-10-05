@@ -15,9 +15,9 @@ import androidx.room.Room;
 import java.util.List;
 
 import bannerga.com.checkmytrain.R;
-import bannerga.com.checkmytrain.data.AppDatabase;
-import bannerga.com.checkmytrain.data.Journey;
-import bannerga.com.checkmytrain.data.JourneyDAO;
+import bannerga.com.checkmytrain.data.model.AppDatabase;
+import bannerga.com.checkmytrain.data.model.Journey;
+import bannerga.com.checkmytrain.data.model.JourneyDAO;
 
 public class CardActivity extends AppCompatActivity {
 

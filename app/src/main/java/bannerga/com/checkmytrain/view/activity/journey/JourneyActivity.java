@@ -18,7 +18,8 @@ import com.facebook.stetho.Stetho;
 import com.google.android.material.textfield.TextInputEditText;
 
 import bannerga.com.checkmytrain.R;
-import bannerga.com.checkmytrain.data.Journey;
+import bannerga.com.checkmytrain.data.model.Journey;
+import bannerga.com.checkmytrain.data.station.PopulateStationTableAsyncTask;
 import bannerga.com.checkmytrain.view.activity.cards.CardActivity;
 import bannerga.com.checkmytrain.view.autocompletetextview.StationTextWatcher;
 import bannerga.com.checkmytrain.view.fragment.TimePickerFragment;
@@ -72,8 +73,8 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
+        DialogFragment timePicker = new TimePickerFragment();
+        timePicker.show(getSupportFragmentManager(), "timePicker");
     }
 
     public void setTime(int hourOfDay, int minute) {

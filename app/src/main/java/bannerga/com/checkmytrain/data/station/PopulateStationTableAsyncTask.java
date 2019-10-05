@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.activity.journey;
+package bannerga.com.checkmytrain.data.station;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -13,9 +13,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-import bannerga.com.checkmytrain.data.AppDatabase;
-import bannerga.com.checkmytrain.data.Station;
-import bannerga.com.checkmytrain.data.StationDAO;
+import bannerga.com.checkmytrain.data.model.AppDatabase;
+import bannerga.com.checkmytrain.data.model.Station;
+import bannerga.com.checkmytrain.data.model.StationDAO;
 import bannerga.com.checkmytrain.json.Timetable;
 
 public class PopulateStationTableAsyncTask extends AsyncTask<String, Void, Boolean> {

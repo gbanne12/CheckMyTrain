@@ -1,13 +1,13 @@
-package bannerga.com.checkmytrain.view.activity.journey;
+package bannerga.com.checkmytrain.data.journey;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.room.Room;
 
-import bannerga.com.checkmytrain.data.AppDatabase;
-import bannerga.com.checkmytrain.data.Journey;
-import bannerga.com.checkmytrain.data.JourneyDAO;
+import bannerga.com.checkmytrain.data.model.AppDatabase;
+import bannerga.com.checkmytrain.data.model.Journey;
+import bannerga.com.checkmytrain.data.model.JourneyDAO;
 
 public class SaveJourneyAsyncTask extends AsyncTask<String, Void, String> {
     private AppDatabase db;

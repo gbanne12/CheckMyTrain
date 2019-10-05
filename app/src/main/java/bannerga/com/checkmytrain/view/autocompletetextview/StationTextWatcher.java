@@ -5,7 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.AutoCompleteTextView;
 
-import bannerga.com.checkmytrain.view.activity.journey.FindStationAsyncTask;
+import bannerga.com.checkmytrain.data.station.FindStationAsyncTask;
 
 public class StationTextWatcher implements TextWatcher {
 
