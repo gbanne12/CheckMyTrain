@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.data;
+package bannerga.com.checkmytrain.data.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -27,8 +27,8 @@ public class Journey {
     @ColumnInfo(name = "minute")
     private int minute;
 
-    @ColumnInfo(name = "jobId")
-    private int jobId;
+    @ColumnInfo(name = "uuid")
+    private String uuid;
 
     @NonNull
     public int getId() {
@@ -71,11 +71,11 @@ public class Journey {
         this.minute = minute;
     }
 
-    public int getJobId() {
-        return jobId;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setJobId(int jobId) {
-        this.jobId = jobId;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

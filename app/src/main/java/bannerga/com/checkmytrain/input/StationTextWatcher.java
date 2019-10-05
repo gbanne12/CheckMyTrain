@@ -1,11 +1,11 @@
-package bannerga.com.checkmytrain.view.autocompletetextview;
+package bannerga.com.checkmytrain.input;
 
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.AutoCompleteTextView;
 
-import bannerga.com.checkmytrain.view.activity.journey.FindStationAsyncTask;
+import bannerga.com.checkmytrain.data.station.FindStationAsyncTask;
 
 public class StationTextWatcher implements TextWatcher {
 

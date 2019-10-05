@@ -18,15 +18,14 @@ import com.facebook.stetho.Stetho;
 import com.google.android.material.textfield.TextInputEditText;
 
 import bannerga.com.checkmytrain.R;
-import bannerga.com.checkmytrain.data.Journey;
-import bannerga.com.checkmytrain.notification.NotificationJob;
+import bannerga.com.checkmytrain.data.model.Journey;
+import bannerga.com.checkmytrain.data.station.PopulateStationTableAsyncTask;
+import bannerga.com.checkmytrain.input.StationTextWatcher;
 import bannerga.com.checkmytrain.view.activity.cards.CardActivity;
-import bannerga.com.checkmytrain.view.autocompletetextview.StationTextWatcher;
 import bannerga.com.checkmytrain.view.fragment.TimePickerFragment;
 
 public class JourneyActivity extends AppCompatActivity {
 
-    private NotificationJob notificationJob = new NotificationJob(this);
     private AutoCompleteTextView arrivalStationText;
     private AutoCompleteTextView departureStationText;
     private TextInputEditText timeText;
@@ -74,8 +73,8 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
+        DialogFragment timePicker = new TimePickerFragment();
+        timePicker.show(getSupportFragmentManager(), "timePicker");
     }
 
     public void setTime(int hourOfDay, int minute) {
@@ -99,8 +98,11 @@ public class JourneyActivity extends AppCompatActivity {
             journey.setDestination(destination);
             journey.setHour(hourOfDay);
             journey.setMinute(minute);
-            notificationJob.saveJob(journey);
-            notificationJob.scheduleJob(journey);
+
+            JourneyController controller = new JourneyController();
+            String workId = controller.scheduleWork(journey, this);
+            journey.setUuid(workId);
+            controller.saveJourney(journey, this);
             Toast.makeText(this, "Journey added", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Enter journey details", Toast.LENGTH_LONG).show();
