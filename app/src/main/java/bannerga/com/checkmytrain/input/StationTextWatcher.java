@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.autocompletetextview;
+package bannerga.com.checkmytrain.input;
 
 import android.content.Context;
 import android.text.Editable;

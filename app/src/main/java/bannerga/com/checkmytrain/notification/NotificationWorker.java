@@ -9,7 +9,6 @@ import androidx.work.WorkerParameters;
 import org.json.JSONArray;
 
 import bannerga.com.checkmytrain.json.Timetable;
-import bannerga.com.checkmytrain.view.notification.TrainNotification;
 
 public class NotificationWorker extends Worker {
 
