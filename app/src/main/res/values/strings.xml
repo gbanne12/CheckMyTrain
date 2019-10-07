@@ -9,7 +9,8 @@
     <string name="button_label_cancel">Cancel</string>
     <string name="button_label_pending">Saved journeys</string>
     <string name="title_activity_pending_jobs">Saved journeys</string>
-    <string name="title_activity_journey">Add a journey</string>
+    <string name="title_activity_journey">Check my train</string>
+    <string name="title_toolbar_activity_journey">Add a journey</string>
     <string name="message_loading">Loading...</string>
     <string name="message_empty">No journeys have been created</string>
 </resources>
