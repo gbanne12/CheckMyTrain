@@ -1,13 +1,13 @@
-package bannerga.com.checkmytrain.view.robot
+package bannerga.com.checkmytrain.espresso.robot
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import bannerga.com.checkmytrain.R
-import bannerga.com.checkmytrain.view.actions.NestedScrollTo
-import bannerga.com.checkmytrain.view.matchers.UiMatcher.first
+import bannerga.com.checkmytrain.espresso.actions.NestedScrollTo
+import bannerga.com.checkmytrain.espresso.matchers.UiMatcher.first
 
 class CardsRobot {
 

@@ -1,8 +1,8 @@
-package bannerga.com.checkmytrain.view.tests
+package bannerga.com.checkmytrain.espresso.tests
 
 import androidx.test.rule.ActivityTestRule
+import bannerga.com.checkmytrain.espresso.robot.JourneyRobot
 import bannerga.com.checkmytrain.view.activity.journey.JourneyActivity
-import bannerga.com.checkmytrain.view.robot.JourneyRobot
 import org.junit.Rule
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.robot
+package bannerga.com.checkmytrain.espresso.robot
 
 import android.widget.TimePicker
 import androidx.test.espresso.Espresso.onData

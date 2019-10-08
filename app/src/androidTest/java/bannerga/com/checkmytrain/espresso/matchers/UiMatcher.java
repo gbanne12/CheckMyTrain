@@ -1,4 +1,4 @@
-package bannerga.com.checkmytrain.view.matchers;
+package bannerga.com.checkmytrain.espresso.matchers;
 
 import android.view.View;
 
