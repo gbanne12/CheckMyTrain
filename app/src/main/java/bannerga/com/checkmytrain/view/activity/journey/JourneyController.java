@@ -10,6 +10,7 @@ import androidx.work.WorkManager;
 
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import bannerga.com.checkmytrain.data.journey.SaveJourneyAsyncTask;
@@ -18,7 +19,7 @@ import bannerga.com.checkmytrain.notification.NotificationWorker;
 
 public class JourneyController {
 
-    String scheduleWork(Journey journey, Context context) {
+    UUID scheduleWork(Journey journey, Context context) {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
@@ -52,7 +53,7 @@ public class JourneyController {
                         .build();
 
         WorkManager.getInstance(context).enqueue(notificationWorkRequest);
-        return notificationWorkRequest.getId().toString();
+        return notificationWorkRequest.getId();
     }
 
     void saveJourney(Journey journey, Context context) {

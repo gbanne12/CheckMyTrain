@@ -3,6 +3,7 @@ package bannerga.com.checkmytrain.notification;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -32,6 +33,7 @@ public class NotificationWorker extends Worker {
         }
         TrainNotification notification = new TrainNotification();
         notification.issueNotification(context, status);
-        return Result.success();
+        Data outputData = new Data.Builder().putInt("code", 200).build();
+        return Result.success(outputData);
     }
 }

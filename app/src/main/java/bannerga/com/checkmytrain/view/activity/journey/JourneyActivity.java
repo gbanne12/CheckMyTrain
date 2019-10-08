@@ -17,6 +17,8 @@ import androidx.fragment.app.DialogFragment;
 import com.facebook.stetho.Stetho;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.UUID;
+
 import bannerga.com.checkmytrain.R;
 import bannerga.com.checkmytrain.data.model.Journey;
 import bannerga.com.checkmytrain.data.station.PopulateStationTableAsyncTask;
@@ -100,8 +102,8 @@ public class JourneyActivity extends AppCompatActivity {
             journey.setMinute(minute);
 
             JourneyController controller = new JourneyController();
-            String workId = controller.scheduleWork(journey, this);
-            journey.setUuid(workId);
+            UUID workId = controller.scheduleWork(journey, this);
+            journey.setUuid(workId.toString());
             controller.saveJourney(journey, this);
             Toast.makeText(this, "Journey added", Toast.LENGTH_LONG).show();
         } else {
